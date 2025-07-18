@@ -2,10 +2,27 @@ title: Felix's demo site for Pages
 description: A demonstration of GitHub Pages with automatic navigation
 theme: minima
 url: "https://felixtp.github.io"
-baseurl: "/felixtp.github.io"
+baseurl: ""  # Change this to empty string
 
 # Set to true to make blog the home page, false for regular home page
 blog_as_home: false
+
+# Pagination settings
+paginate: 10
+paginate_path: "/blog/page:num/"
+
+# Search settings
+search_enabled: true
+
+# SEO settings
+author: Felix
+social:
+  name: Felix
+  links:
+    - https://github.com/felixtp
+
+# Reading time estimation
+reading_time: true
 
 markdown: kramdown
 highlighter: rouge
@@ -13,6 +30,8 @@ highlighter: rouge
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-seo-tag
 
 exclude:
   - README.md

@@ -4,7 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="author" content="{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "{% if page.layout == 'post' %}BlogPosting{% else %}WebSite{% endif %}",
+      "name": "{{ site.title }}",
+      "url": "{{ site.url }}{{ site.baseurl }}",
+      "description": "{{ site.description }}"
+    }
+    </script>
+    
     <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+            --card-bg: white;
+            --border-color: #e1e5e9;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --text-color: #e8e8e8;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --border-color: #404040;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,8 +59,9 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .container {
@@ -25,10 +71,13 @@
         }
 
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
             padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .header-content {
@@ -36,11 +85,102 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.3);
+            width: 250px;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            display: none;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .search-result {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-result:hover {
+            background: var(--bg-color);
+        }
+
+        .search-result:last-child {
+            border-bottom: none;
+        }
+
+        .search-result a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: block;
+        }
+
+        .search-result-title {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .search-result-excerpt {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.2);
         }
 
         nav ul {
@@ -56,10 +196,16 @@
             padding: 0.5rem 1rem;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            position: relative;
         }
 
         nav a:hover, nav a.active {
             background-color: rgba(255,255,255,0.2);
+        }
+
+        nav a:focus {
+            outline: 2px solid white;
+            outline-offset: 2px;
         }
 
         main {
@@ -68,21 +214,102 @@
         }
 
         .content {
-            background: white;
+            background: var(--card-bg);
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
             margin-bottom: 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .reading-time {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .reading-time::before {
+            content: "📖";
+        }
+
+        .toc {
+            background: var(--bg-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .toc h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .toc li {
+            margin-bottom: 0.25rem;
+        }
+
+        .toc a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .toc a:hover {
+            color: var(--primary-color);
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .tag:hover {
+            background: var(--secondary-color);
+            color: white;
         }
 
         h1, h2, h3 {
             margin-bottom: 1rem;
-            color: #2c3e50;
+            color: var(--text-color);
         }
 
         h1 {
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid var(--primary-color);
             padding-bottom: 0.5rem;
+        }
+
+        h2, h3 {
+            position: relative;
+        }
+
+        h2::before, h3::before {
+            content: attr(id);
+            position: absolute;
+            left: -1000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
         }
 
         p {
@@ -90,7 +317,7 @@
         }
 
         a {
-            color: #667eea;
+            color: var(--primary-color);
             text-decoration: none;
         }
 
@@ -98,12 +325,51 @@
             text-decoration: underline;
         }
 
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 4px;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
         footer {
             background: #2c3e50;
             color: white;
             text-align: center;
-            padding: 1rem 0;
+            padding: 2rem 0;
             margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
         }
 
         .rss-link {
@@ -117,10 +383,46 @@
             text-decoration: underline;
         }
 
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 gap: 1rem;
+            }
+            
+            .header-controls {
+                order: -1;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .search-input {
+                width: 150px;
+            }
+            
+            .search-input:focus {
+                width: 180px;
             }
             
             nav ul {
@@ -131,15 +433,31 @@
             .content {
                 padding: 1rem;
             }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
     <header>
         <div class="container">
             <div class="header-content">
                 <div class="logo">{{ site.title }}</div>
-                <nav>
+                <div class="header-controls">
+                    {% if site.search_enabled %}
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Search..." id="search-input" autocomplete="off">
+                        <div class="search-results" id="search-results"></div>
+                    </div>
+                    {% endif %}
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+                </div>
+                <nav role="navigation" aria-label="Main navigation">
                     <ul>
                         {% unless site.blog_as_home %}
                             <li>
@@ -173,20 +491,153 @@
         </div>
     </header>
 
-    <main>
+    <main id="main" role="main">
         <div class="container">
-            <div class="content">
+            <article class="content">
+                {% if page.layout == 'post' %}
+                    <div class="post-meta">
+                        {% if page.tags %}
+                            <div class="tags">
+                                {% for tag in page.tags %}
+                                    <a href="{{ '/tags/' | append: tag | relative_url }}" class="tag">{{ tag }}</a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        {% if site.reading_time and content %}
+                            <div class="reading-time">
+                                {% assign words = content | number_of_words %}
+                                {% assign reading_time = words | divided_by: 200 | plus: 1 %}
+                                {{ reading_time }} min read
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                
                 {{ content }}
-            </div>
+            </article>
         </div>
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
-            <p>&copy; 2024 {{ site.title }}. Built with GitHub Pages. 
-               <a href="{{ '/feed.xml' | relative_url }}" class="rss-link">RSS Feed</a>
-            </p>
+            <div class="footer-content">
+                <div>
+                    <p>&copy; 2024 {{ site.title }}. Built with GitHub Pages.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="{{ '/feed.xml' | relative_url }}" class="rss-link">RSS Feed</a>
+                    <a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a>
+                    {% if site.social.links %}
+                        {% for link in site.social.links %}
+                            <a href="{{ link }}" target="_blank" rel="noopener">GitHub</a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        let searchData = [];
+
+        if (searchInput) {
+            // Load search data
+            fetch('{{ "/search.json" | relative_url }}')
+                .then(response => response.json())
+                .then(data => {
+                    searchData = data;
+                })
+                .catch(error => console.error('Error loading search data:', error));
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                if (query.length < 2) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+
+                const results = searchData.filter(item => 
+                    item.title.toLowerCase().includes(query) || 
+                    item.content.toLowerCase().includes(query)
+                ).slice(0, 5);
+
+                if (results.length > 0) {
+                    searchResults.innerHTML = results.map(item => `
+                        <div class="search-result">
+                            <a href="${item.url}">
+                                <div class="search-result-title">${item.title}</div>
+                                <div class="search-result-excerpt">${item.excerpt}</div>
+                            </a>
+                        </div>
+                    `).join('');
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            });
+
+            // Hide search results when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-container')) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        }
+
+        // Back to top button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add heading IDs for table of contents
+        document.querySelectorAll('h2, h3').forEach((heading, index) => {
+            const id = heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            heading.id = id;
+        });
+    </script>
 </body>
 </html>
