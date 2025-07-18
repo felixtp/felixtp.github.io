@@ -15,22 +15,6 @@
     <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
     <meta property="og:url" content="{{ page.url | absolute_url }}">
     
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-    <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "{% if page.layout == 'post' %}BlogPosting{% else %}WebSite{% endif %}",
-      "name": "{{ site.title }}",
-      "url": "{{ site.url }}{{ site.baseurl }}",
-      "description": "{{ site.description }}"
-    }
-    </script>
-    
     <style>
         :root {
             --primary-color: #667eea;
@@ -148,10 +132,6 @@
             background: var(--bg-color);
         }
 
-        .search-result:last-child {
-            border-bottom: none;
-        }
-
         .search-result a {
             color: var(--text-color);
             text-decoration: none;
@@ -196,16 +176,10 @@
             padding: 0.5rem 1rem;
             border-radius: 5px;
             transition: background-color 0.3s ease;
-            position: relative;
         }
 
         nav a:hover, nav a.active {
             background-color: rgba(255,255,255,0.2);
-        }
-
-        nav a:focus {
-            outline: 2px solid white;
-            outline-offset: 2px;
         }
 
         main {
@@ -233,38 +207,6 @@
 
         .reading-time::before {
             content: "📖";
-        }
-
-        .toc {
-            background: var(--bg-color);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .toc h3 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-
-        .toc ul {
-            list-style: none;
-            padding-left: 1rem;
-        }
-
-        .toc li {
-            margin-bottom: 0.25rem;
-        }
-
-        .toc a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .toc a:hover {
-            color: var(--primary-color);
         }
 
         .tags {
@@ -299,19 +241,6 @@
             padding-bottom: 0.5rem;
         }
 
-        h2, h3 {
-            position: relative;
-        }
-
-        h2::before, h3::before {
-            content: attr(id);
-            position: absolute;
-            left: -1000px;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-        }
-
         p {
             margin-bottom: 1rem;
         }
@@ -323,22 +252,6 @@
 
         a:hover {
             text-decoration: underline;
-        }
-
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 6px;
-            background: var(--primary-color);
-            color: white;
-            padding: 8px;
-            text-decoration: none;
-            z-index: 1000;
-            border-radius: 4px;
-        }
-
-        .skip-link:focus {
-            top: 6px;
         }
 
         footer {
@@ -405,6 +318,118 @@
             transform: translateY(-2px);
         }
 
+        /* Blog post styles */
+        .blog-posts {
+            margin-top: 2rem;
+        }
+
+        .blog-post {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .blog-post:last-child {
+            border-bottom: none;
+        }
+
+        .blog-post h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-post h2 a {
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .blog-post h2 a:hover {
+            color: var(--primary-color);
+        }
+
+        .post-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-excerpt {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .no-posts {
+            text-align: center;
+            padding: 3rem 0;
+            color: #666;
+        }
+
+        /* Recent posts styles */
+        .recent-posts {
+            margin-top: 2rem;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .recent-post {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            background: var(--bg-color);
+        }
+
+        .recent-post h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .recent-post h3 a {
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .recent-post h3 a:hover {
+            color: var(--primary-color);
+        }
+
+        .recent-post .post-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .recent-post p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .view-all-posts {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .view-all {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .view-all:hover {
+            background: var(--secondary-color);
+            text-decoration: none;
+        }
+
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -442,8 +467,6 @@
     </style>
 </head>
 <body>
-    <a href="#main" class="skip-link">Skip to main content</a>
-    
     <header>
         <div class="container">
             <div class="header-content">
@@ -457,7 +480,7 @@
                     {% endif %}
                     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
                 </div>
-                <nav role="navigation" aria-label="Main navigation">
+                <nav>
                     <ul>
                         {% unless site.blog_as_home %}
                             <li>
@@ -491,7 +514,7 @@
         </div>
     </header>
 
-    <main id="main" role="main">
+    <main>
         <div class="container">
             <article class="content">
                 {% if page.layout == 'post' %}
@@ -519,7 +542,7 @@
         </div>
     </main>
 
-    <footer role="contentinfo">
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div>
@@ -618,25 +641,6 @@
                 top: 0,
                 behavior: 'smooth'
             });
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Add heading IDs for table of contents
-        document.querySelectorAll('h2, h3').forEach((heading, index) => {
-            const id = heading.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-            heading.id = id;
         });
     </script>
 </body>

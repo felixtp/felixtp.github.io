@@ -15,7 +15,7 @@ We'd love to hear from you! Whether you have questions, feedback, or collaborati
     <div class="contact-method">
         <h3>📧 Email</h3>
         <p>For general inquiries and support</p>
-        <a href="mailto:hello@example.com">hello@example.com</a>
+        <a href="mailto:felix@example.com">felix@example.com</a>
     </div>
     
     <div class="contact-method">
@@ -33,7 +33,7 @@ We'd love to hear from you! Whether you have questions, feedback, or collaborati
 
 ## Send us a Message
 
-<form id="contact-form" class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+<form id="contact-form" class="contact-form">
     <div class="form-group">
         <label for="name">Name *</label>
         <input type="text" id="name" name="name" required>
@@ -66,21 +66,6 @@ We'd love to hear from you! Whether you have questions, feedback, or collaborati
     </div>
 </form>
 
-## FAQ
-
-### How quickly will you respond?
-We typically respond within 1-2 business days. For urgent technical issues, we aim to respond within 24 hours.
-
-### What should I include in my message?
-Please be as specific as possible about your question or issue. Include relevant details like:
-- What you were trying to do
-- What happened instead
-- Any error messages you received
-- Your browser and operating system (for technical issues)
-
-### Can I contribute to the project?
-Absolutely! We welcome contributions of all kinds. Check out our [GitHub repository](https://github.com/felixtp/pages) for more information.
-
 <style>
 .contact-methods {
     display: grid;
@@ -105,16 +90,6 @@ Absolutely! We welcome contributions of all kinds. Check out our [GitHub reposit
 .contact-method p {
     color: #666;
     margin-bottom: 1rem;
-}
-
-.contact-method a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.contact-method a:hover {
-    text-decoration: underline;
 }
 
 .contact-form {
@@ -169,30 +144,18 @@ Absolutely! We welcome contributions of all kinds. Check out our [GitHub reposit
     background: var(--secondary-color);
     transform: translateY(-1px);
 }
-
-.form-group button:active {
-    transform: translateY(0);
-}
-
-@media (max-width: 768px) {
-    .contact-methods {
-        grid-template-columns: 1fr;
-    }
-}
 </style>
 
 <script>
 document.getElementById('contact-form').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    const formData = new FormData(this);
     const button = this.querySelector('button');
     const originalText = button.textContent;
     
     button.textContent = 'Sending...';
     button.disabled = true;
     
-    // Simulate form submission (replace with actual form handling)
     setTimeout(() => {
         alert('Thank you for your message! We\'ll get back to you soon.');
         this.reset();
