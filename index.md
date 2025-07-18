@@ -36,28 +36,28 @@ Welcome to our blog! Here you'll find the latest posts and updates.
 <div class="hero-section">
   <div class="hero-content">
     <h1 class="hero-title">Hi, I'm Felix 👋</h1>
-    <p class="hero-subtitle">Full-Stack Developer & Infrastructure Enthusiast</p>
+    <p class="hero-subtitle">Professional Code Wrangler & Digital Tea Enthusiast</p>
     <p class="hero-description">
-      I build scalable web applications and robust infrastructure solutions. 
-      Passionate about modern technologies, clean code, and solving complex problems.
+      I turn coffee into code and somehow manage to keep websites running (mostly). 
+      Based in England, where the weather is unpredictable but my code comments are always spot on.
     </p>
     <div class="hero-buttons">
-      <a href="#projects" class="btn btn-primary">View My Work</a>
-      <a href="{{ '/contact/' | relative_url }}" class="btn btn-secondary">Get In Touch</a>
+      <a href="#projects" class="btn btn-primary">See My Shenanigans</a>
+      <a href="{{ '/contact/' | relative_url }}" class="btn btn-secondary">Fancy a Chat?</a>
     </div>
   </div>
   <div class="hero-stats">
     <div class="stat">
       <span class="stat-number">5+</span>
-      <span class="stat-label">Years Experience</span>
+      <span class="stat-label">Years of Debugging</span>
     </div>
     <div class="stat">
       <span class="stat-number">{{ site.posts.size }}</span>
-      <span class="stat-label">Blog Posts</span>
+      <span class="stat-label">Brilliant Thoughts</span>
     </div>
     <div class="stat">
-      <span class="stat-number">10+</span>
-      <span class="stat-label">Projects</span>
+      <span class="stat-number">∞</span>
+      <span class="stat-label">Cups of Tea</span>
     </div>
   </div>
 </div>
@@ -66,94 +66,112 @@ Welcome to our blog! Here you'll find the latest posts and updates.
   <h2>Technologies & Skills</h2>
   <div class="skills-grid">
     <div class="skill-category">
-      <h3>Frontend</h3>
+      <h3>Things I Actually Know</h3>
       <div class="skill-tags">
         <span class="skill-tag">HTML5</span>
         <span class="skill-tag">CSS3</span>
         <span class="skill-tag">JavaScript</span>
         <span class="skill-tag">React</span>
-        <span class="skill-tag">Vue.js</span>
-        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">Making Tea</span>
+        <span class="skill-tag">Git (mostly)</span>
       </div>
     </div>
     <div class="skill-category">
-      <h3>Backend</h3>
+      <h3>Things I Google Daily</h3>
       <div class="skill-tags">
         <span class="skill-tag">Node.js</span>
         <span class="skill-tag">Python</span>
         <span class="skill-tag">Django</span>
-        <span class="skill-tag">Express.js</span>
         <span class="skill-tag">PostgreSQL</span>
-        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">CSS Flexbox</span>
+        <span class="skill-tag">Regex</span>
       </div>
     </div>
     <div class="skill-category">
-      <h3>DevOps & Cloud</h3>
+      <h3>Things That Scare Me</h3>
       <div class="skill-tags">
         <span class="skill-tag">Docker</span>
         <span class="skill-tag">Kubernetes</span>
         <span class="skill-tag">AWS</span>
-        <span class="skill-tag">GitHub Actions</span>
-        <span class="skill-tag">Terraform</span>
-        <span class="skill-tag">Jenkins</span>
+        <span class="skill-tag">Production Deploys</span>
+        <span class="skill-tag">Merge Conflicts</span>
+        <span class="skill-tag">Internet Explorer</span>
       </div>
     </div>
     <div class="skill-category">
-      <h3>Tools & Others</h3>
+      <h3>British Essentials</h3>
       <div class="skill-tags">
-        <span class="skill-tag">Git</span>
-        <span class="skill-tag">VS Code</span>
-        <span class="skill-tag">Figma</span>
-        <span class="skill-tag">Jekyll</span>
-        <span class="skill-tag">Ansible</span>
-        <span class="skill-tag">Linux</span>
+        <span class="skill-tag">Queueing</span>
+        <span class="skill-tag">Tutting</span>
+        <span class="skill-tag">Weather Complaints</span>
+        <span class="skill-tag">Sarcasm</span>
+        <span class="skill-tag">Pub Quizzes</span>
+        <span class="skill-tag">Proper Pronunciation</span>
       </div>
     </div>
   </div>
 </section>
 
 <section id="projects" class="projects-section">
-  <h2>Featured Projects</h2>
+  <h2>Featured Projects (AKA My Digital Offspring)</h2>
   <div class="projects-grid">
     <div class="project-card">
       <div class="project-image">
-        <div class="project-placeholder">🚀</div>
+        <div class="project-placeholder">🎭</div>
       </div>
       <div class="project-content">
-        <h3>Infrastructure as Code Demo</h3>
-        <p>A comprehensive demonstration of modern IaC practices using Terraform, Ansible, and GitHub Actions for automated deployment pipelines.</p>
+        <h3>The Great British Website</h3>
+        <p>A perfectly reasonable website that does exactly what it says on the tin. Built with proper British engineering principles: over-engineered, under-documented, but surprisingly reliable.</p>
         <div class="project-tech">
-          <span class="tech-tag">Terraform</span>
-          <span class="tech-tag">Ansible</span>
-          <span class="tech-tag">AWS</span>
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">Good Intentions</span>
         </div>
         <div class="project-links">
-          <a href="https://github.com/felixtp/iaac-demo" class="project-link">View Code</a>
-          <a href="#" class="project-link">Live Demo</a>
+          <a href="https://github.com/felixtp/pages" class="project-link">Peek at Code</a>
+          <a href="#" class="project-link">See the Magic</a>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="project-card">
+      <div class="project-image">
+        <div class="project-placeholder">🍃</div>
+      </div>
+      <div class="project-content">
+        <h3>Jekyll Blog Template</h3>
+        <p>A modern blog template that's more polished than my morning routine. Features include dark mode (for those late-night coding sessions) and search functionality (because who has time to scroll?).</p>
+        <div class="project-tech">
+          <span class="tech-tag">Jekyll</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Midnight Oil</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/felixtp/pages" class="project-link">Source Code</a>
+          <a href="https://felixtp.github.io" class="project-link">Live Site</a>
         </div>
       </div>
     </div>
     
     <div class="project-card">
       <div class="project-image">
-        <div class="project-placeholder">📝</div>
+        <div class="project-placeholder">🧪</div>
       </div>
       <div class="project-content">
-        <h3>GitHub Pages Template</h3>
-        <p>A flexible Jekyll template for GitHub Pages with automatic navigation, dark mode, search functionality, and responsive design.</p>
+        <h3>Experimental Nonsense</h3>
+        <p>A collection of "quick experiments" that somehow turned into proper projects. Contains more console.log statements than actual features, but hey, it works on my machine!</p>
         <div class="project-tech">
-          <span class="tech-tag">Jekyll</span>
-          <span class="tech-tag">JavaScript</span>
-          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">Everything</span>
+          <span class="tech-tag">Stack Overflow</span>
+          <span class="tech-tag">Hope & Prayer</span>
         </div>
         <div class="project-links">
-          <a href="https://github.com/felixtp/pages" class="project-link">View Code</a>
-          <a href="https://felixtp.github.io" class="project-link">Live Demo</a>
+          <a href="#" class="project-link">Browse Chaos</a>
+          <a href="#" class="project-link">Send Help</a>
         </div>
       </div>
-    </div>
-    
-    <div class="project-card">
+    </div>    <div class="project-card">
       <div class="project-image">
         <div class="project-placeholder">🔧</div>
       </div>
@@ -175,21 +193,41 @@ Welcome to our blog! Here you'll find the latest posts and updates.
 </section>
 
 <section class="about-section">
-  <h2>About Me</h2>
+  <h2>About Me (The Unnecessarily Long Version)</h2>
   <div class="about-content">
     <div class="about-text">
       <p>
-        I'm a passionate developer with a strong background in full-stack development and infrastructure automation. 
-        I love building scalable applications and creating efficient development workflows.
+        I'm Felix, a developer from England who's been wrestling with code for longer than I care to admit. 
+        When I'm not debugging something that was "definitely working five minutes ago," you'll find me 
+        drinking tea, complaining about the weather, or explaining why <code>git push --force</code> is 
+        almost never the answer (almost).
       </p>
       <p>
-        When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, 
-        or writing about my experiences in software development and DevOps.
+        My coding journey started with a simple "Hello World" and has since evolved into an endless 
+        cycle of Stack Overflow searches, rubber duck debugging sessions, and the occasional moment 
+        of pure genius (usually followed by realizing I've been spelling "function" wrong for an hour).
+      </p>
+      <p>
+        I believe in writing code that's readable, maintainable, and doesn't make future-me want to 
+        travel back in time for a stern word with past-me. Though let's be honest, future-me will 
+        probably still find something to complain about.
       </p>
       <div class="about-highlights">
         <div class="highlight">
-          <h4>🎯 Focus Areas</h4>
-          <p>Full-stack development, Infrastructure as Code, DevOps automation</p>
+          <h4>🎯 Current Mission</h4>
+          <p>Building things that work (most of the time) and writing about the journey</p>
+        </div>
+        <div class="highlight">
+          <h4>🌱 Learning Goal</h4>
+          <p>Trying to understand CSS Grid without crying. Progress: moderate success</p>
+        </div>
+        <div class="highlight">
+          <h4>💼 Work Philosophy</h4>
+          <p>Code like someone who has to maintain it will find out where you live</p>
+        </div>
+      </div>
+    </div>
+  </div>
         </div>
         <div class="highlight">
           <h4>🌱 Currently Learning</h4>
