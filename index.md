@@ -1,6 +1,6 @@
 ---
 layout: default
-title: {% if site.blog_as_home %}Blog{% else %}Home{% endif %}
+title: Home
 nav_order: 1
 ---
 
