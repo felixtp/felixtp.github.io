@@ -1,5 +1,5 @@
-title: Felix's demo site for Pages
-description: A demonstration of GitHub Pages with automatic navigation
+title: Felix's Modern Blog
+description: A modern blog about web development, infrastructure, and technology
 theme: minima
 url: "https://felixtp.github.io"
 baseurl: ""  # Change this to empty string
@@ -7,12 +7,15 @@ baseurl: ""  # Change this to empty string
 # Set to true to make blog the home page, false for regular home page
 blog_as_home: false
 
+# Enhanced features
+search_enabled: true
+reading_time: true
+social_sharing: true
+dark_mode: true
+
 # Pagination settings
 paginate: 10
 paginate_path: "/blog/page:num/"
-
-# Search settings
-search_enabled: true
 
 # SEO settings
 author: Felix
@@ -21,11 +24,23 @@ social:
   links:
     - https://github.com/felixtp
 
-# Reading time estimation
-reading_time: true
+# Blog settings
+excerpt_separator: <!--more-->
+show_excerpts: true
+
+# Performance settings
+incremental: true
+future: false
+unpublished: false
 
 markdown: kramdown
 highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
 
 plugins:
   - jekyll-feed
@@ -36,3 +51,12 @@ plugins:
 exclude:
   - README.md
   - CLAUDE.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - assets/js/src/
+  - assets/css/src/
