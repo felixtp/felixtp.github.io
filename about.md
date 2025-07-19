@@ -13,15 +13,6 @@ permalink: /about/
 
 <div class="home-intro">
     <h1 class="home-title">About</h1>
-    <p class="home-subtitle">A little bit about me and this blog.</p>
-</div>
-
-<div class="post-content">
-    <p>Hi, I'm Felix. This is my blog where I share thoughts, ideas, and occasional rants about technology, life, and everything in between.</p>
-    
-    <p>I believe in clear thinking and honest writing. Sometimes I'll write short, punchy posts about things that are bugging me. Other times I'll dive deep into complex topics that require more nuanced exploration.</p>
-    
-    <p>Thanks for reading.</p>
 </div>
 
 <style>

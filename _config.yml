@@ -1,35 +1,27 @@
-title: Felix's Modern Blog
-description: A modern blog about web development, infrastructure, and technology
-theme: minima
+title: Felix's Blog
+description: Personal blog - thoughts and ideas
 url: "https://felixtp.github.io"
-baseurl: ""  # Change this to empty string
+baseurl: ""
 
-# Set to true to make blog the home page, false for regular home page
-blog_as_home: false
+# Security settings
+future: false
+unpublished: false
+safe: true
 
-# Enhanced features
-search_enabled: true
-reading_time: true
-social_sharing: true
+# Minimal features for security
+search_enabled: false
+social_sharing: false
 dark_mode: true
 
-# Pagination settings
-paginate: 10
-paginate_path: "/blog/page:num/"
-
-# SEO settings
+# SEO settings (minimal)
 author: Felix
-social:
-  name: Felix
-  links:
-    - https://github.com/felixtp
 
 # Blog settings
 excerpt_separator: <!--more-->
 show_excerpts: true
 
 # Performance settings
-incremental: true
+incremental: false
 future: false
 unpublished: false
 
@@ -45,12 +37,13 @@ kramdown:
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-paginate
   - jekyll-seo-tag
 
+# Security: Exclude sensitive files from build
 exclude:
   - README.md
   - CLAUDE.md
+  - SECURITY.md
   - Gemfile
   - Gemfile.lock
   - node_modules
@@ -58,5 +51,12 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
-  - assets/js/src/
-  - assets/css/src/
+  - .git/
+  - .gitignore
+  - .bundle/
+  - .sass-cache/
+  - .jekyll-cache/
+  - _drafts/
+  - "*.log"
+  - "*.tmp"
+  - "*.bak"
