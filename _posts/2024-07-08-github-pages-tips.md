@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "5 Essential GitHub Pages Tips"
 date: 2024-07-08 14:30:00 -0000
 author: Web Developer

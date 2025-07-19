@@ -22,11 +22,11 @@ show_excerpts: true
 
 # Performance settings
 incremental: false
-future: false
-unpublished: false
 
 markdown: kramdown
 highlighter: rouge
+kramdown:
+  input: GFM
 kramdown:
   input: GFM
   syntax_highlighter: rouge

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Welcome to Our Blog!"
 date: 2024-07-10 10:00:00 -0000
 author: GitHub Pages Team

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Hello World: Building a Modern Blog Experience"
 date: 2025-01-19 14:00:00 -0000
 author: "Felix"

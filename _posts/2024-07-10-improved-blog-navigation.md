@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Improved Blog Navigation for Flexible Homepage Layouts"
 date: 2024-07-10 15:30:00 -0000
 author: Site Developer

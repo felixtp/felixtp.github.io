@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Understanding Jekyll and Liquid Templating"
 date: 2024-07-05 09:15:00 -0000
 author: Jekyll Expert
