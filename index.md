@@ -1,13 +1,10 @@
 ---
-layout: default
-title: Home
-nav_order: 1
+title: Felix
 ---
 
-<div class="home-intro">
-    <h1 class="home-title">Hi 👋</h1>
-    <p class="home-subtitle">Welcome to my corner of the internet. I write about things I find interesting.</p>
-</div>
+# Hi 👋
+
+Welcome to my corner of the internet. I write about things I find interesting.
 
 <div class="blog-posts">
     {% for post in site.posts %}
