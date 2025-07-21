@@ -7,13 +7,15 @@ permalink: /about/
 
 ## The Origin Story (Or: How I Accidentally Became a Tech Person)
 
-Once upon a time, there was a young lad who thought computers were for games and commerce degrees were for sensible people. Naturally, I chose commerce—not because I had any particular affinity for spreadsheets, mind you, but because my mates did, and peer pressure is a powerful force when you're of an age that rhymes with "shorty."
+Once upon a time, there was a young lad who thought computers were for games and commerce degrees were for sensible people. Naturally, I chose commerce, not because I had any particular affinity for spreadsheets, mind you, but because my mates did, and peer pressure is a powerful force when you're of an age that rhymes with "shorty."
 
 Picture this: Windows 95 humming away on the family computer, and me, the designated household IT department, which mostly involved turning it off and on again. When things went properly sideways (as they often did), I'd blame my little brother. Poor chap probably thought he had cursed fingers for years.
 
 ## The Academic Meandering Years
 
-I accumulated qualifications the way some people collect stamps—enthusiastically but without a clear plan. A Bachelor of Commerce from a country that has more sheep than people, followed by a postgraduate diploma in taxation (because nothing says "fun" quite like depreciation schedules), and eventually a graduate diploma in computing (when I finally admitted computers might be more than just elaborate gaming machines).
+I accumulated qualifications the way some people collect stamps—enthusiastically but without a clear plan. A Bachelor of Commerce from a country that has more sheep than people, followed by a postgraduate diploma in taxation (because nothing says "fun" quite like depreciation schedules), and eventually a graduate diploma in computing (when I finally admitted computers might be more than just elaborate gaming machines). 
+
+The computing qualification was generously sponsored by my employer at the time, who were absolutely lovely about paying for it while ensuring my salary remained at subsistence levels. How thoughtful of them to invest in my future while keeping me humble in the present.
 
 The taxation stint lasted precisely one month. Turns out, being the youngest person in an office full of calculators and existential dread wasn't my calling. Who could have predicted?
 
@@ -25,9 +27,9 @@ What followed was a career path that would make a pinball look purposeful:
 
 **The SQL Interlude**: Learned a bit of SQL, forgot most of it, rediscovered it later. It's like riding a bicycle, except the bicycle occasionally throws syntax errors at you.
 
-**Desktop Support**: Skipped helpdesk entirely—apparently, I was overqualified for some things and underqualified for others. The sweet spot of corporate confusion.
+**Desktop Support**: Skipped helpdesk entirely. Apparently, I was overqualified for some things and underqualified for others. The sweet spot of corporate confusion.
 
-**Network & Security**: Cisco and Palo Alto devices became my daily companions. Spent more time in data centres across Australia and New Zealand than a reasonable person should. If you've got a DC in the region, I've probably stood in it looking confused at some point.
+**Network & Security**: Cisco and Palo Alto devices became my daily companions. Spent more time in data centres than a reasonable person should, wandering around server rooms like a lost tourist asking "Which blinking light means everything's fine?" If there's a major facility within a thousand-mile radius, I've probably stood in it looking confused at some point.
 
 **DevSecOps Consulting**: Landed in consulting without really knowing what DevSecOps meant. Went from "not having an option" and asking devices quality questions to "having options" and asking Stack Overflow quality questions. Progress!
 
@@ -35,7 +37,7 @@ What followed was a career path that would make a pinball look purposeful:
 
 ## When I'm Not Breaking Things Professionally
 
-**Gardening Enthusiast**: Coming from farming stock, I've got dirt under my fingernails and plants on the brain. There's something deeply satisfying about coaxing life from soil—probably because computers never grow leaves when you water them.
+**Gardening Enthusiast**: Coming from farming stock, I've got dirt under my fingernails and plants on the brain. There's something deeply satisfying about coaxing life from soil, probably because computers never grow leaves when you water them.
 
 I'm the sort of person who wakes up at 4 AM to dig holes and transplant things, but would happily chuck an on-call phone out the window if the lottery ever cooperates. Priorities, you see.
 
