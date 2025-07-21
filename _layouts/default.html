@@ -135,6 +135,23 @@
             letter-spacing: -0.02em;
         }
 
+        /* About Page - Colourful Vintage Headings */
+        .about-page h1 {
+            color: var(--vintage-green);
+            border-bottom: 2px solid var(--vintage-green);
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-8);
+            display: inline-block;
+        }
+
+        .about-page h2:nth-of-type(1) { color: var(--vintage-amber); }
+        .about-page h2:nth-of-type(2) { color: var(--accent-color); }
+        .about-page h2:nth-of-type(3) { color: var(--vintage-rust); }
+        .about-page h2:nth-of-type(4) { color: var(--vintage-green); }
+        .about-page h2:nth-of-type(5) { color: var(--vintage-amber); }
+        .about-page h2:nth-of-type(6) { color: var(--accent-color); }
+        .about-page h2:nth-of-type(7) { color: var(--vintage-rust); }
+
         h1 {
             font-size: var(--font-size-4xl);
             margin-bottom: var(--space-8);
@@ -572,7 +589,7 @@
     </header>
 
     <main>
-        <div class="container">
+        <div class="container{% if page.url contains '/about/' %} about-page{% endif %}">
             {{ content }}
         </div>
     </main>

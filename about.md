@@ -3,15 +3,15 @@ title: About
 permalink: /about/
 ---
 
-# About This Particular Human
+# about this particular human
 
-## The Origin Story (Or: How I Accidentally Became a Tech Person)
+## the origin story (or: how i accidentally became a tech person)
 
 Once upon a time, there was a young lad who thought computers were for games and commerce degrees were for sensible people. Naturally, I chose commerce, not because I had any particular affinity for spreadsheets, mind you, but because my mates did, and peer pressure is a powerful force when you're of an age that rhymes with "shorty."
 
 Picture this: Windows 95 humming away on the family computer, and me, the designated household IT department, which mostly involved turning it off and on again. When things went properly sideways (as they often did), I'd blame my little brother. Poor chap probably thought he had cursed fingers for years.
 
-## The Academic Meandering Years
+## the academic meandering years
 
 I accumulated qualifications the way some people collect stamps—enthusiastically but without a clear plan. A Bachelor of Commerce from a country that has more sheep than people, followed by a postgraduate diploma in taxation (because nothing says "fun" quite like depreciation schedules), and eventually a graduate diploma in computing (when I finally admitted computers might be more than just elaborate gaming machines). 
 
@@ -19,7 +19,7 @@ The computing qualification was generously sponsored by my employer at the time,
 
 The taxation stint lasted precisely one month. Turns out, being the youngest person in an office full of calculators and existential dread wasn't my calling. Who could have predicted?
 
-## The Accidental IT Odyssey
+## the accidental it odyssey
 
 What followed was a career path that would make a pinball look purposeful:
 
@@ -35,7 +35,7 @@ What followed was a career path that would make a pinball look purposeful:
 
 **Cyber Security & GRC**: Currently trying to figure out what GRC (Governance, Risk, and Compliance) is actually made of. Two years in, and it remains as mysterious as why people put pineapple on pizza. The investigation continues.
 
-## When I'm Not Breaking Things Professionally
+## when i'm not breaking things professionally
 
 **Gardening Enthusiast**: Coming from farming stock, I've got dirt under my fingernails and plants on the brain. There's something deeply satisfying about coaxing life from soil, probably because computers never grow leaves when you water them.
 
@@ -43,11 +43,11 @@ I'm the sort of person who wakes up at 4 AM to dig holes and transplant things, 
 
 **Reluctant Traveller**: Did a bit of wandering with the old man years ago, and I've ticked some boxes since, though the list keeps getting longer. Funny how the world keeps making more interesting places when you're not looking.
 
-## Current Existential Crisis
+## current existential crisis
 
 These days, I find myself marvelling at artificial intelligence while simultaneously wondering if we humans have managed to create something that might just kill off the very thing that created it—our brains. It's rather like teaching your replacement to do your job, except your replacement never gets tired, doesn't need coffee, and probably won't blame its mistakes on its little brother.
 
-## Why This Blog?
+## why this blog?
 
 Someone once said that writing is thinking made visible. If that's true, then this blog is proof that my thinking needs a good tidy-up. Consider it a digital garden where ideas grow slowly, bugs are features, and every now and then, something actually makes sense.
 
