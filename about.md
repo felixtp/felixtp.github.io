@@ -13,7 +13,7 @@ Picture this: Windows 95 humming away on the family computer, and me, the design
 
 ## the academic meandering years
 
-I accumulated qualifications the way some people collect stamps—enthusiastically but without a clear plan. A Bachelor of Commerce from a country that has more sheep than people, followed by a postgraduate diploma in taxation (because nothing says "fun" quite like depreciation schedules), and eventually a graduate diploma in computing (when I finally admitted computers might be more than just elaborate gaming machines). 
+I accumulated qualifications the way some people collect stamps-enthusiastically but without a clear plan. A Bachelor of Commerce from a country that has more sheep than people, followed by a postgraduate diploma in taxation (because nothing says "fun" quite like depreciation schedules), and eventually a graduate diploma in computing (when I finally admitted computers might be more than just elaborate gaming machines). 
 
 The computing qualification was generously sponsored by my employer at the time, who were absolutely lovely about paying for it while ensuring my salary remained at subsistence levels. How thoughtful of them to invest in my future while keeping me humble in the present.
 
@@ -45,7 +45,7 @@ I'm the sort of person who wakes up at 4 AM to dig holes and transplant things, 
 
 ## current existential crisis
 
-These days, I find myself marvelling at artificial intelligence while simultaneously wondering if we humans have managed to create something that might just kill off the very thing that created it—our brains. It's rather like teaching your replacement to do your job, except your replacement never gets tired, doesn't need coffee, and probably won't blame its mistakes on its little brother.
+These days, I find myself marvelling at artificial intelligence while simultaneously wondering if we humans have managed to create something that might just kill off the very thing that created it-our brains. It's rather like teaching your replacement to do your job, except your replacement never gets tired, doesn't need coffee, and probably won't blame its mistakes on its little brother.
 
 ## why this blog?
 
@@ -53,8 +53,8 @@ Someone once said that writing is thinking made visible. If that's true, then th
 
 ## Get in Touch
 
-If you've made it this far, you're either genuinely interested or severely procrastinating. Either way, I salute you. Feel free to drop me a line—I promise I'm more coherent in written form than this About page might suggest.
+If you've made it this far, you're either genuinely interested or severely procrastinating. Either way, I salute you. Feel free to drop me a line-I promise I'm more coherent in written form than this About page might suggest.
 
 ---
 
-*Currently located somewhere between "learning something new" and "wondering what I've gotten myself into"—which, coincidentally, has been my default state for the better part of four decades.*
+*Currently located somewhere between "learning something new" and "wondering what I've gotten myself into"-which, coincidentally, has been my default state for the better part of four decades.*
