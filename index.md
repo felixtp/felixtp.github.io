@@ -27,6 +27,9 @@ description: Thoughts, code, and everything in between
     </div>
 </div>
 
+<!-- Debug: Show total posts count -->
+<div style="display: none;">Debug: {{ site.posts.size }} posts found</div>
+
 <section class="blog-posts">
     {% for post in site.posts %}
     <article class="blog-post">
