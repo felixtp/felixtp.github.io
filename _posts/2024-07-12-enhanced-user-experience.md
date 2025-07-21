@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "Enhanced User Experience: Search, Dark Mode, and More"
 date: 2024-07-12 10:00:00 -0000
 author: Felix
