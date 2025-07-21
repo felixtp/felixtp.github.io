@@ -17,8 +17,8 @@ description: Thoughts, code, and everything in between
             <div>total views</div>
         </div>
         <div class="stat-item">
-            <div class="stat-number mono" id="coffeeCount">∞</div>
-            <div>cups of coffee</div>
+            <div class="stat-number mono" id="typoCount">∞</div>
+            <div>typos fixed</div>
         </div>
         <div class="stat-item">
             <div class="stat-number mono">{{ 'now' | date: '%Y' | minus: 1995 }}</div>
@@ -146,19 +146,19 @@ document.addEventListener('DOMContentLoaded', function() {
         el.textContent = views > 0 ? `${views} views` : '— views';
     });
     
-    // Coffee counter animation (because why not?)
-    const coffeeEl = document.getElementById('coffeeCount');
-    if (coffeeEl) {
-        let count = Math.floor(Math.random() * 1000) + 500;
-        coffeeEl.textContent = count.toLocaleString();
+    // Typo counter animation (because we all make them!)
+    const typoEl = document.getElementById('typoCount');
+    if (typoEl) {
+        let count = Math.floor(Math.random() * 500) + 200;
+        typoEl.textContent = count.toLocaleString();
         
         // Increment occasionally for humor
         setInterval(() => {
-            if (Math.random() < 0.1) { // 10% chance every interval
+            if (Math.random() < 0.08) { // 8% chance every interval
                 count++;
-                coffeeEl.textContent = count.toLocaleString();
+                typoEl.textContent = count.toLocaleString();
             }
-        }, 30000); // Every 30 seconds
+        }, 45000); // Every 45 seconds
     }
 });
 </script>
