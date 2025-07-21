@@ -26,12 +26,6 @@ description: Thoughts, code, and everything in between
         </div>
     </div>
 </div>
-        <div class="stat-item">
-            <div class="stat-number mono">{{ 'now' | date: '%Y' | minus: 1995 }}</div>
-            <div>years debugging</div>
-        </div>
-    </div>
-</div>
 
 <section class="blog-posts">
     {% for post in site.posts %}
