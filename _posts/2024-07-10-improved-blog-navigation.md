@@ -41,11 +41,11 @@ Eliminates potential duplicate content issues that could arise from having the s
 The improvement uses Liquid templating logic in the navigation system to conditionally route the Blog link:
 
 ```liquid
-{% if page.title == "Blog" and site.blog_as_home %}
-  <a href="{{ '/' | relative_url }}">{{ page.title }}</a>
-{% else %}
-  <a href="{{ page.url | relative_url }}">{{ page.title }}</a>
-{% endif %}
+if page.title == "Blog" and site.blog_as_home
+  <a href="/">page.title</a>
+else
+  <a href="page.url">page.title</a>
+endif
 ```
 
 This ensures the navigation always points users to the correct location for blog content based on the site's configuration.

@@ -14,27 +14,53 @@ Jekyll uses the Liquid templating language to process your site. Understanding L
 
 Liquid is a template language created by Shopify. It's safe, customer-facing, and designed to run on any platform.
 
-### Basic Syntax
+### Basic Output
 
-Liquid has three main types of markup:
+You can output variables using double curly braces:
 
-**Objects** - Output content:
 ```liquid
-{{ page.title }}
-{{ site.name }}
+page.title
+site.name
 ```
 
-**Tags** - Control logic:
+## Conditional Logic
+
+Liquid supports if statements for conditional content:
+
 ```liquid
-{% if user %}
-  Hello {{ user.name }}!
-{% endif %}
+if user
+  Hello user.name!
+endif
 ```
 
-**Filters** - Modify output:
+## Filters
+
+Apply filters to modify output:
+
 ```liquid
-{{ "hello world" | capitalize }}
-{{ page.date | date: "%B %d, %Y" }}
+"hello world" | capitalize
+page.date | date: "%B %d, %Y"
+```
+
+## Loops
+
+Iterate through collections:
+
+```liquid
+for page in site.pages
+  if page.title
+    <a href="page.url">page.title</a>
+  endif
+endfor
+```
+
+Display recent posts:
+
+```liquid
+for post in site.posts limit:5
+  <h2>post.title</h2>
+  <p>post.excerpt</p>
+endfor
 ```
 
 ## Common Jekyll Use Cases
