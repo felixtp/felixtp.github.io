@@ -3,7 +3,7 @@ title: Analytics
 permalink: /analytics.html
 ---
 
-# vintage analytics & visitor tracking
+# where visitors wander
 
 <div class="analytics-header">
     <p class="vintage-subtitle">where curiosity meets cartography</p>
@@ -412,52 +412,83 @@ class VintageAnalytics {
         const countries = this.data.countries;
         const countriesCount = Object.keys(countries).length;
         
-        // Vintage ASCII-style world map
+        // Creative vintage ASCII world map
         mapContainer.innerHTML = `
             <div style="font-family: var(--font-mono); line-height: 1.2; text-align: center;">
-                <div style="color: var(--text-secondary); margin-bottom: var(--space-4); font-size: var(--font-size-sm);">
-                    Visitor Geography (Privacy-First Tracking)
+                <div style="color: var(--text-secondary); margin-bottom: var(--space-4); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.1em;">
+                    Global Wanderings • Privacy-First Cartography
                 </div>
                 
-                <div style="font-size: var(--font-size-xs); color: var(--text-tertiary); margin-bottom: var(--space-6);">
-<pre style="margin: 0; color: var(--vintage-green);">
-                 .-""""""-.
-               .'          '.
-              /   O      O   \\
-             :           \`    :
-             |                |
-             :    .------.    :
-              \\  '        '  /
-               '.  \`------'  .'
-                 '-.......-'
-               
-           🌍 VISITOR TRACKING MAP 🌍
+                <div style="font-size: var(--font-size-xs); color: var(--vintage-green); margin-bottom: var(--space-6);">
+<pre style="margin: 0; line-height: 1.1;">
+    ╔════════════════════════════════════════════════════════════╗
+    ║                      VISITOR ATLAS                        ║
+    ╚════════════════════════════════════════════════════════════╝
+    
+        🌎 A M E R I C A S     🌍 E U R O P E     🌏 A S I A
+        
+           .-.   .-.   .-.         ╭─╮     ╭───╮         ╭─╮
+          (   )_(   )_(   )        │ │     │   │        ╱   ╲
+           '-'   '-'   '-'         ╰─╯     ╰───╯       ╱     ╲
+        
+        🗺️ TRACKING STATION OPERATIONAL 🗺️
+        
+    ┌──────────────┬──────────────┬──────────────┬──────────────┐
+    │  CONTINENT   │   VISITORS   │   STATUS     │   COVERAGE   │
+    ├──────────────┼──────────────┼──────────────┼──────────────┤
+    │   GLOBAL     │      ${countriesCount}       │   ACTIVE     │   COUNTRY    │
+    │   TRACKING   │   NATIONS    │   SECURE     │   LEVEL      │
+    └──────────────┴──────────────┴──────────────┴──────────────┘
 </pre>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-4); text-align: left; margin: var(--space-6) 0;">
-                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
-                        <div style="color: var(--vintage-amber); font-weight: 600; margin-bottom: var(--space-2);">
-                            CONTINENTAL REACH
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); text-align: left; margin: var(--space-6) 0;">
+                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light); position: relative;">
+                        <div style="position: absolute; top: var(--space-2); right: var(--space-2); font-size: 1.5rem;">🌐</div>
+                        <div style="color: var(--vintage-amber); font-weight: 600; margin-bottom: var(--space-2); font-family: var(--font-mono);">
+                            TERRITORIAL REACH
                         </div>
-                        <div style="color: var(--text-primary);">
-                            📍 ${countriesCount} ${countriesCount === 1 ? 'country' : 'countries'} visited
+                        <div style="color: var(--text-primary); font-family: var(--font-mono); font-size: var(--font-size-sm);">
+                            📍 ${countriesCount} ${countriesCount === 1 ? 'territory' : 'territories'} charted
+                        </div>
+                        <div style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: var(--space-2);">
+                            Geographic footprint expanding
                         </div>
                     </div>
                     
-                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
-                        <div style="color: var(--vintage-rust); font-weight: 600; margin-bottom: var(--space-2);">
-                            PRIVACY STATUS
+                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light); position: relative;">
+                        <div style="position: absolute; top: var(--space-2); right: var(--space-2); font-size: 1.5rem;">🔒</div>
+                        <div style="color: var(--vintage-rust); font-weight: 600; margin-bottom: var(--space-2); font-family: var(--font-mono);">
+                            PRIVACY PROTOCOL
                         </div>
-                        <div style="color: var(--text-primary);">
-                            🔒 No personal data stored
+                        <div style="color: var(--text-primary); font-family: var(--font-mono); font-size: var(--font-size-sm);">
+                            ✓ Zero personal data stored
+                        </div>
+                        <div style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: var(--space-2);">
+                            Anonymous wanderer tracking
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light); position: relative;">
+                        <div style="position: absolute; top: var(--space-2); right: var(--space-2); font-size: 1.5rem;">🧭</div>
+                        <div style="color: var(--vintage-green); font-weight: 600; margin-bottom: var(--space-2); font-family: var(--font-mono);">
+                            NAVIGATION METHOD
+                        </div>
+                        <div style="color: var(--text-primary); font-family: var(--font-mono); font-size: var(--font-size-sm);">
+                            📡 IP geolocation approximation
+                        </div>
+                        <div style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: var(--space-2);">
+                            Country-level precision only
                         </div>
                     </div>
                 </div>
 
-                <div style="margin-top: var(--space-8); font-size: var(--font-size-xs); color: var(--text-tertiary);">
-                    <div>Approximate location via IP geolocation</div>
-                    <div>Country-level data only • No individual tracking</div>
+                <div style="margin-top: var(--space-8); padding: var(--space-4); background: var(--bg-secondary); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                    <div style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--text-tertiary); text-align: center;">
+                        <div style="margin-bottom: var(--space-2);">📜 CARTOGRAPHER'S NOTE 📜</div>
+                        <div>This digital atlas respects wanderer privacy whilst charting the curious souls</div>
+                        <div>who find their way to this corner of the internet's vast territories.</div>
+                    </div>
                 </div>
             </div>
         `;
