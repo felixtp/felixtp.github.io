@@ -3,51 +3,12 @@ description: Personal blog
 url: "https://felixtp.github.io"
 baseurl: ""
 
-# Security settings
-future: false
-unpublished: false
-safe: true
-
-# Minimal features for security
-search_enabled: false
-social_sharing: false
-dark_mode: true
-
-# SEO settings (minimal)
-author: Felix
-
-# Blog settings
-excerpt_separator: <!--more-->
-show_excerpts: true
-
-# Performance settings
-incremental: false
-
 markdown: kramdown
 highlighter: rouge
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    block:
-      line_numbers: true
 
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-seo-tag
-
-# Security: Exclude sensitive files from build
-exclude:
-  - README.md
-  - CLAUDE.md
-  - SECURITY.md
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
   - vendor/ruby/
   - .git/
   - .gitignore
