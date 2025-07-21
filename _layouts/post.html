@@ -1,53 +1,206 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} - {{ site.title }}</title>
+---
+layout: default
+---
+
+<article>
+    <header class="post-header">
+        <h1 class="post-title">{{ page.title | escape }}</h1>
+        <div class="post-meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}">
+                {{ page.date | date: '%B %d, %Y' }}
+            </time>
+            {% if page.tags and page.tags.size > 0 %}
+            <span class="tags">
+                {% for tag in page.tags %}
+                    <span class="tag">#{{ tag }}</span>
+                {% endfor %}
+            </span>
+            {% endif %}
+        </div>
+        <div class="post-stats">
+            <span class="reading-time">{{ content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+            <span class="word-count">{{ content | number_of_words }} words</span>
+            <span class="view-count" data-post="{{ page.url | slugify }}">— views</span>
+        </div>
+    </header>
+
+    <div class="post-content">
+        {{ content }}
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-navigation">
+            {% if page.previous.url %}
+            <a href="{{ page.previous.url | relative_url }}" class="nav-link prev-post">
+                ← {{ page.previous.title | escape }}
+            </a>
+            {% endif %}
+            
+            {% if page.next.url %}
+            <a href="{{ page.next.url | relative_url }}" class="nav-link next-post">
+                {{ page.next.title | escape }} →
+            </a>
+            {% endif %}
+        </div>
+        
+        <div class="back-to-home">
+            <a href="{{ '/' | relative_url }}" class="back-link">← back to garden</a>
+        </div>
+    </footer>
+</article>
+
+<!-- Reading Progress Bar -->
+<div class="progress-bar" id="progress-bar"></div>
+
+<style>
+/* Post-specific vintage styling */
+.post-footer {
+    margin-top: var(--space-24);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--border-light);
+}
+
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-8);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+    max-width: 45%;
+}
+
+.nav-link:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background: var(--bg-accent);
+}
+
+.prev-post {
+    text-align: left;
+}
+
+.next-post {
+    text-align: right;
+}
+
+.back-to-home {
+    text-align: center;
+}
+
+.back-link {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+}
+
+.back-link:hover {
+    color: var(--accent-color);
+}
+
+/* Reading Progress Bar - Vintage Style */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--vintage-amber);
+    z-index: 1000;
+    transition: width 0.1s ease;
+}
+
+/* Responsive post navigation */
+@media (max-width: 640px) {
+    .post-navigation {
+        flex-direction: column;
+        gap: var(--space-4);
+    }
     
-    <!-- Security Headers -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+    .nav-link {
+        max-width: 100%;
+        text-align: center;
+    }
     
-    <style>
-        body { 
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
-            line-height: 1.6; 
-            max-width: 680px; 
-            margin: 0 auto; 
-            padding: 2rem; 
-            color: #2c3e50; 
+    .post-stats {
+        flex-direction: column;
+        gap: var(--space-2);
+        text-align: center;
+    }
+}
+</style>
+
+<script>
+// Post analytics and progress tracking
+document.addEventListener('DOMContentLoaded', function() {
+    const postSlug = '{{ page.url | slugify }}';
+    const progressBar = document.getElementById('progress-bar');
+    const viewCountEl = document.querySelector('.view-count');
+    
+    // Initialize analytics
+    let analytics = JSON.parse(localStorage.getItem('blog-analytics') || '{}');
+    if (!analytics.posts) analytics.posts = {};
+    if (!analytics.posts[postSlug]) analytics.posts[postSlug] = { views: 0, lastViewed: null };
+    
+    // Increment view count (once per session)
+    const sessionKey = `viewed-${postSlug}`;
+    if (!sessionStorage.getItem(sessionKey)) {
+        analytics.posts[postSlug].views++;
+        analytics.posts[postSlug].lastViewed = new Date().toISOString();
+        sessionStorage.setItem(sessionKey, 'true');
+        localStorage.setItem('blog-analytics', JSON.stringify(analytics));
+    }
+    
+    // Update view counter display
+    const views = analytics.posts[postSlug].views;
+    if (viewCountEl) {
+        viewCountEl.textContent = views === 1 ? '1 view' : `${views} views`;
+    }
+    
+    // Reading progress bar
+    function updateProgress() {
+        const article = document.querySelector('article');
+        if (!article || !progressBar) return;
+        
+        const articleTop = article.offsetTop;
+        const articleHeight = article.offsetHeight;
+        const windowHeight = window.innerHeight;
+        const scrollTop = window.pageYOffset;
+        
+        let progress = 0;
+        if (scrollTop >= articleTop) {
+            progress = Math.min(100, ((scrollTop - articleTop) / (articleHeight - windowHeight)) * 100);
         }
         
-        /* Reading Progress Bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            z-index: 1000;
-            transition: width 0.3s ease;
+        progressBar.style.width = Math.max(0, progress) + '%';
+    }
+    
+    // Throttled scroll handler
+    let ticking = false;
+    function handleScroll() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                updateProgress();
+                ticking = false;
+            });
+            ticking = true;
         }
-        
-        /* View Counter */
-        .post-stats {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.9rem;
-            color: #6c757d;
-            margin-bottom: 1rem;
-        }
-        
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        
-        /* Modern Typography */
+    }
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updateProgress(); // Initial calculation
+});
+</script>
         h1 { 
             font-size: 2.5rem; 
             margin-bottom: 0.5rem; 

@@ -1,7 +1,8 @@
 title: "Felix's Digital Garden"
-description: "Thoughts, code, and everything in between"
+description: "where ideas grow slowly and bugs are features"
 url: "https://felixtp.github.io"
 baseurl: ""
+author: "Felix"
 
 markdown: kramdown
 highlighter: rouge

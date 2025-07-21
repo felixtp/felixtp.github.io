@@ -1,235 +1,164 @@
 ---
-title: Felix
+title: Felix's Digital Garden
+description: Thoughts, code, and everything in between
 ---
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    line-height: 1.6;
-    color: #2c3e50;
-    background: #fafafa;
-    min-height: 100vh;
-}
-
-body {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 2rem;
-}
-
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-    html, body {
-        background: #1a1a1a;
-        color: #e4e4e7;
-    }
+<div class="home-intro">
+    <h1 class="home-title">Felix's Digital Garden</h1>
+    <p class="home-subtitle">where ideas grow slowly and bugs are features</p>
     
-    .hero {
-        background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%) !important;
-    }
-    
-    .blog-post {
-        background: #2a2a2a !important;
-        border-color: #404040 !important;
-        color: #e4e4e7 !important;
-    }
-    
-    .blog-post-title a {
-        color: #e4e4e7 !important;
-    }
-    
-    .blog-post-title a:hover {
-        color: #8b5cf6 !important;
-    }
-    
-    .blog-post-meta {
-        color: #9ca3af !important;
-    }
-    
-    .blog-post-excerpt {
-        color: #d1d5db !important;
-    }
-    
-    nav a {
-        color: #8b5cf6 !important;
-    }
-    
-    .stat-number {
-        color: #8b5cf6 !important;
-    }
-    
-    .coming-soon {
-        color: #9ca3af !important;
-    }
-}
-
-.hero {
-    text-align: center;
-    margin: 3rem 0 4rem 0;
-    padding: 3rem 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 16px;
-    margin-left: -2rem;
-    margin-right: -2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
-
-.hero h1 {
-    font-size: 3rem;
-    margin: 0 0 1rem 0;
-    font-weight: 700;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    margin: 0;
-}
-
-.blog-stats {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 2rem 0;
-    font-size: 0.9rem;
-    color: #6c757d;
-}
-
-.stat {
-    text-align: center;
-}
-
-.stat-number {
-    display: block;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #667eea;
-}
-
-.blog-posts {
-    display: grid;
-    gap: 1.5rem;
-}
-
-.blog-post {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    border: 1px solid #e9ecef;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.blog-post:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.blog-post-title a {
-    color: #2c3e50;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.3rem;
-}
-
-.blog-post-title a:hover {
-    color: #667eea;
-}
-
-.blog-post-meta {
-    color: #6c757d;
-    font-size: 0.9rem;
-    margin: 0.5rem 0 1rem 0;
-}
-
-.blog-post-excerpt {
-    color: #495057;
-    line-height: 1.6;
-}
-
-.coming-soon {
-    text-align: center;
-    padding: 3rem;
-    color: #6c757d;
-}
-
-nav {
-    margin: 2rem 0;
-    text-align: center;
-}
-
-nav a {
-    margin: 0 1rem;
-    color: #667eea;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-</style>
-
-<div class="hero">
-    <h1>Hi, I'm Felix 👋</h1>
-    <p>Welcome to my corner of the internet. I write about things I find interesting.</p>
-</div>
-
-<div class="blog-stats">
-    <div class="stat">
-        <span class="stat-number" id="total-posts">{{ site.posts.size }}</span>
-        <span>Posts</span>
-    </div>
-    <div class="stat">
-        <span class="stat-number" id="total-views">-</span>
-        <span>Views</span>
-    </div>
-    <div class="stat">
-        <span class="stat-number">2025</span>
-        <span>Year Started</span>
+    <div class="home-stats">
+        <div class="stat-item">
+            <div class="stat-number mono" id="totalPosts">{{ site.posts.size }}</div>
+            <div>posts written</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number mono" id="totalViews">0</div>
+            <div>total views</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number mono" id="coffeeCount">∞</div>
+            <div>cups of coffee</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number mono">{{ 'now' | date: '%Y' | minus: 1995 }}</div>
+            <div>years debugging</div>
+        </div>
     </div>
 </div>
 
-<nav>
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/analytics.html">Stats</a>
-</nav>
-
-<div class="blog-posts">
+<section class="blog-posts">
     {% for post in site.posts %}
     <article class="blog-post">
-        <h2 class="blog-post-title">
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-        </h2>
-        <div class="blog-post-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %d, %Y" }}</time>
-            {% if post.author %} • by {{ post.author }}{% endif %}
-        </div>
+        <header>
+            <h2 class="blog-post-title">
+                <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+            </h2>
+            <div class="blog-post-meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}">
+                    {{ post.date | date: '%B %d, %Y' }}
+                </time>
+                {% if post.tags and post.tags.size > 0 %}
+                <span class="tags">
+                    {% for tag in post.tags %}
+                        <span class="tag">#{{ tag }}</span>
+                    {% endfor %}
+                </span>
+                {% endif %}
+            </div>
+        </header>
+        
         <div class="blog-post-excerpt">
-            {{ post.excerpt | strip_html | truncatewords: 30 }}
+            {% if post.excerpt %}
+                {{ post.excerpt | strip_html | truncatewords: 25 }}
+            {% else %}
+                A brief meditation on the art of {{ post.title | downcase }}...
+            {% endif %}
         </div>
+        
+        <footer class="blog-post-footer">
+            <div class="post-stats-mini">
+                <span class="views" data-post="{{ post.url | slugify }}">— views</span>
+                <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+            </div>
+            <a href="{{ post.url | relative_url }}" class="read-more">continue reading →</a>
+        </footer>
     </article>
     {% endfor %}
     
     {% if site.posts.size == 0 %}
-    <div class="coming-soon">
-        <h2>Coming Soon</h2>
-        <p>I'm working on some posts. Check back soon for thoughts on technology, life, and everything in between.</p>
+    <div class="empty-state">
+        <h3>The garden is being prepared...</h3>
+        <p>No posts yet, but the soil is fertile and the ideas are germinating. Check back soon!</p>
     </div>
     {% endif %}
-</div>
+</section>
+
+<style>
+/* Page-specific styles */
+.mono { font-family: var(--font-mono); }
+
+.tags {
+    margin-left: var(--space-3);
+}
+
+.tag {
+    color: var(--accent-color);
+    margin-right: var(--space-2);
+    font-size: var(--font-size-xs);
+}
+
+.views {
+    color: var(--vintage-green);
+}
+
+.reading-time {
+    color: var(--text-tertiary);
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--space-24) var(--space-8);
+    color: var(--text-secondary);
+}
+
+.empty-state h3 {
+    font-family: var(--font-serif);
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+    .home-stats {
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+    
+    .blog-post-footer {
+        flex-direction: column;
+        gap: var(--space-3);
+        text-align: center;
+    }
+    
+    .post-stats-mini {
+        justify-content: center;
+    }
+}
+</style>
 
 <script>
-// Display total blog views
-const totalViews = localStorage.getItem('blog-views') || '0';
-document.getElementById('total-views').textContent = totalViews;
+// Load view counts for posts
+document.addEventListener('DOMContentLoaded', function() {
+    // Update total views counter
+    const analytics = JSON.parse(localStorage.getItem('blog-analytics') || '{}');
+    const totalViews = Object.values(analytics.posts || {}).reduce((sum, post) => sum + (post.views || 0), 0);
+    
+    const totalViewsEl = document.getElementById('totalViews');
+    if (totalViewsEl && totalViews > 0) {
+        totalViewsEl.textContent = totalViews.toLocaleString();
+    }
+    
+    // Update individual post view counts
+    document.querySelectorAll('.views[data-post]').forEach(el => {
+        const postSlug = el.getAttribute('data-post');
+        const views = analytics.posts?.[postSlug]?.views || 0;
+        el.textContent = views > 0 ? `${views} views` : '— views';
+    });
+    
+    // Coffee counter animation (because why not?)
+    const coffeeEl = document.getElementById('coffeeCount');
+    if (coffeeEl) {
+        let count = Math.floor(Math.random() * 1000) + 500;
+        coffeeEl.textContent = count.toLocaleString();
+        
+        // Increment occasionally for humor
+        setInterval(() => {
+            if (Math.random() < 0.1) { // 10% chance every interval
+                count++;
+                coffeeEl.textContent = count.toLocaleString();
+            }
+        }, 30000); // Every 30 seconds
+    }
+});
 </script>
