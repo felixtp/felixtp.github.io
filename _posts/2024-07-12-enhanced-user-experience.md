@@ -122,5 +122,5 @@ We'd love to hear your thoughts on these improvements! Try out the new features 
 
 The search functionality, dark mode, and accessibility improvements make this site not just more functional, but more enjoyable to use. Whether you're browsing on mobile, using a screen reader, or simply prefer dark interfaces, these updates ensure everyone has a great experience.
 
-<!-- *What's your favorite new feature? Let us know in the comments or reach out through our [contact page]({{ '/contact/' | relative_url }})!* -->
+<!-- What's your favorite new feature? Let us know in the comments or reach out through our contact page! -->
 *What's your favorite new feature? Let us know in the comments!*
