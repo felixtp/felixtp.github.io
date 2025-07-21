@@ -3,14 +3,70 @@ title: Felix
 ---
 
 <style>
-body {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 2rem;
     line-height: 1.6;
     color: #2c3e50;
     background: #fafafa;
+    min-height: 100vh;
+}
+
+body {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    html, body {
+        background: #1a1a1a;
+        color: #e4e4e7;
+    }
+    
+    .hero {
+        background: linear-gradient(135deg, #4c1d95 0%, #581c87 100%) !important;
+    }
+    
+    .blog-post {
+        background: #2a2a2a !important;
+        border-color: #404040 !important;
+        color: #e4e4e7 !important;
+    }
+    
+    .blog-post-title a {
+        color: #e4e4e7 !important;
+    }
+    
+    .blog-post-title a:hover {
+        color: #8b5cf6 !important;
+    }
+    
+    .blog-post-meta {
+        color: #9ca3af !important;
+    }
+    
+    .blog-post-excerpt {
+        color: #d1d5db !important;
+    }
+    
+    nav a {
+        color: #8b5cf6 !important;
+    }
+    
+    .stat-number {
+        color: #8b5cf6 !important;
+    }
+    
+    .coming-soon {
+        color: #9ca3af !important;
+    }
 }
 
 .hero {
