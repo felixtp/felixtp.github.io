@@ -12,14 +12,14 @@ Picture, if you will, the year 1885. Karl Benz has just cobbled together his Pat
 
 ## The Audacity of Artificial Thinking
 
-The thing is, we've become frightfully accustomed to the idea that intelligence requires a brain, preferably one housed in something that needs feeding and has opinions about the weather. Before we'd even conceived of horseless carriages, the notion of brainless intelligence would have seemed about as likely as a fish riding a bicycle—which, incidentally, would have been another impossible thing until someone invented the bicycle.
+The thing is, we've become frightfully accustomed to the idea that intelligence requires a brain, preferably one housed in something that needs feeding and has opinions about the weather. Before we'd even conceived of horseless carriages, the notion of brainless intelligence would have seemed about as likely as a fish riding a bicycle-which, incidentally, would have been another impossible thing until someone invented the bicycle.
 
 Consider the poor Victorian gentleman, struggling to comprehend a world where:
 - Carriages might propel themselves (how vulgar!)
 - Messages could travel without a horse and rider (what sorcery!)
 - Machines could perform calculations faster than his accountant (unemployment crisis!)
 
-Now imagine explaining to this chap that one day, machines wouldn't just calculate—they'd write poetry, paint pictures, and probably have stronger opinions about the Oxford comma than most of his contemporaries.
+Now imagine explaining to this chap that one day, machines wouldn't just calculate-they'd write poetry, paint pictures, and probably have stronger opinions about the Oxford comma than most of his contemporaries.
 
 ## The Great Mechanical Horse Replacement Scandal
 
@@ -43,13 +43,13 @@ I suspect a Victorian encountering modern AI would go through the traditional fi
 
 ## The Uncomfortable Truth About Progress
 
-The uncomfortable truth—uncomfortable for horses, anyway—is that we've always been rather ruthless about replacing things that served us well. We traded horses for engines, candles for electric lights, and carrier pigeons for telegrams. Each time, we thought we'd reached the pinnacle of human achievement, only to discover we'd barely scratched the surface.
+The uncomfortable truth-uncomfortable for horses, anyway-is that we've always been rather ruthless about replacing things that served us well. We traded horses for engines, candles for electric lights, and carrier pigeons for telegrams. Each time, we thought we'd reached the pinnacle of human achievement, only to discover we'd barely scratched the surface.
 
 Now we're trading human intelligence for artificial intelligence, which feels rather more personal than replacing a horse. After all, most of us were quite attached to our intelligence, limited though it may have been.
 
 ## A Modest Proposal for Our AI Future
 
-Perhaps we should take a leaf from the horses' book. They didn't fight the combustion engine—they simply reinvented themselves as recreational companions and occasional racing entertainment. Humans might do well to consider a similar career pivot.
+Perhaps we should take a leaf from the horses' book. They didn't fight the combustion engine-they simply reinvented themselves as recreational companions and occasional racing entertainment. Humans might do well to consider a similar career pivot.
 
 Instead of competing with AI at thinking (a battle we're destined to lose with the same dignity as horses competing with motorcars), perhaps we should focus on the things machines find puzzling: procrastination, getting unreasonably emotional about sports teams, and the peculiar human ability to make tea exactly wrong despite having made it correctly thousands of times before.
 
