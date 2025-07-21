@@ -19,7 +19,7 @@ The computing qualification was generously sponsored by my employer at the time,
 
 The taxation stint lasted precisely one month. Turns out, being the youngest person in an office full of calculators and existential dread wasn't my calling. Who could have predicted?
 
-## the accidental it odyssey
+## the accidental IT odyssey
 
 What followed was a career path that would make a pinball look purposeful:
 
@@ -51,7 +51,7 @@ These days, I find myself marvelling at artificial intelligence while simultaneo
 
 Someone once said that writing is thinking made visible. If that's true, then this blog is proof that my thinking needs a good tidy-up. Consider it a digital garden where ideas grow slowly, bugs are features, and every now and then, something actually makes sense.
 
-## Get in Touch
+## get in touch
 
 If you've made it this far, you're either genuinely interested or severely procrastinating. Either way, I salute you. Feel free to drop me a line-I promise I'm more coherent in written form than this About page might suggest.
 
