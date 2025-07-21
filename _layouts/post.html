@@ -8,17 +8,109 @@
     <!-- Security Headers -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'none';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';">
+    
+    <style>
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            line-height: 1.6; 
+            max-width: 680px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+            color: #2c3e50; 
+        }
+        
+        /* Reading Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+        
+        /* View Counter */
+        .post-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        /* Modern Typography */
+        h1 { 
+            font-size: 2.5rem; 
+            margin-bottom: 0.5rem; 
+            line-height: 1.2; 
+        }
+        
+        .post-meta { 
+            color: #6c757d; 
+            margin-bottom: 2rem; 
+            font-size: 0.95rem; 
+        }
+        
+        .post-content { 
+            font-size: 1.1rem; 
+            line-height: 1.7; 
+        }
+        
+        .post-content h2 {
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Back to Blog */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+    <!-- Reading Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
     <main>
+        <a href="{{ '/' | relative_url }}" class="back-link">← Back to Blog</a>
+        
         <article>
             <div class="post-header">
                 <h1 class="post-title">{{ page.title }}</h1>
+                
+                <div class="post-stats">
+                    <div class="stat-item">
+                        <span>👁️</span>
+                        <span id="view-count">0</span>
+                        <span>views</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>📖</span>
+                        <span id="read-time">{{ content | reading_time }}</span>
+                        <span>min read</span>
+                    </div>
+                </div>
+                
                 <div class="post-meta">
                     <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
                     {% if page.author %} • by {{ page.author }}{% endif %}
-                    {% if page.reading_time %} • {{ page.reading_time }} min read{% endif %}
                 </div>
             </div>
 
@@ -27,5 +119,33 @@
             </div>
         </article>
     </main>
+    
+    <script>
+        // Reading Progress Bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        });
+        
+        // Simple View Counter (localStorage)
+        const postSlug = '{{ page.url | slugify }}';
+        const viewKey = 'views-' + postSlug;
+        let views = parseInt(localStorage.getItem(viewKey) || '0');
+        views++;
+        localStorage.setItem(viewKey, views);
+        document.getElementById('view-count').textContent = views;
+        
+        // Reading Time Calculation
+        const content = document.querySelector('.post-content').textContent;
+        const words = content.split(/\s+/).length;
+        const readTime = Math.ceil(words / 200); // 200 words per minute
+        document.getElementById('read-time').textContent = readTime;
+        
+        // Track total blog views
+        const totalViews = parseInt(localStorage.getItem('blog-views') || '0') + 1;
+        localStorage.setItem('blog-views', totalViews);
+    </script>
 </body>
 </html>
