@@ -16,7 +16,7 @@ description: Thoughts, code, and everything in between
             <div class="stat-number mono" id="totalViews">0</div>
             <div>total views</div>
         </div>
-        <div class="stat-item">
+                <div class="stat-item">
             <div class="stat-number mono" id="typoCount">∞</div>
             <div>typos fixed</div>
         </div>
@@ -26,9 +26,12 @@ description: Thoughts, code, and everything in between
         </div>
     </div>
 </div>
-
-<!-- Debug: Show total posts count -->
-<div style="display: none;">Debug: {{ site.posts.size }} posts found</div>
+        <div class="stat-item">
+            <div class="stat-number mono">{{ 'now' | date: '%Y' | minus: 1995 }}</div>
+            <div>years debugging</div>
+        </div>
+    </div>
+</div>
 
 <section class="blog-posts">
     {% for post in site.posts %}
@@ -142,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         totalViewsEl.textContent = totalViews.toLocaleString();
     }
     
-    // Update individual post view counts
+        // Update individual post view counts
     document.querySelectorAll('.views[data-post]').forEach(el => {
         const postSlug = el.getAttribute('data-post');
         const views = analytics.posts?.[postSlug]?.views || 0;

@@ -1,8 +1,7 @@
 ---
 title: "Artificial Intelligence and the Humble Horse: A Rather Unfair Comparison"
-date: 2024-07-21 14:30:00 +0000
+date: 2024-07-21
 tags: [ai, history, humour, technology]
-description: "In which we ponder what folks might have said about artificial intelligence before the combustion engine made horses redundant, and other delightfully absurd historical musings."
 ---
 
 I was having a perfectly reasonable cup of tea this morning when a rather peculiar thought struck me: what would people have made of artificial intelligence before we'd even sorted out the combustion engine? 
