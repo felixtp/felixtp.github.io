@@ -1,5 +1,5 @@
 ---
-title: "Artificial Intelligence and the Humble Horse: A Rather Unfair Comparison"
+title: "Artificial Intelligence and the humble Horse: A rather unfair comparison"
 date: 2025-07-19
 tags: [ai, history, humour, technology]
 ---
