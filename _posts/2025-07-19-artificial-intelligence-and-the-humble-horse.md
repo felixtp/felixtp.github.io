@@ -10,7 +10,7 @@ Picture, if you will, the year 1885. Karl Benz has just cobbled together his Pat
 
 "Preposterous!" they'd cry, adjusting their top hats indignantly. "Machines can't think! Next you'll be telling us carriages can run without horses!"
 
-## The Audacity of Artificial Thinking
+## the audacity of artificial thinking
 
 The thing is, we've become frightfully accustomed to the idea that intelligence requires a brain, preferably one housed in something that needs feeding and has opinions about the weather. Before we'd even conceived of horseless carriages, the notion of brainless intelligence would have seemed about as likely as a fish riding a bicycle-which, incidentally, would have been another impossible thing until someone invented the bicycle.
 
@@ -21,13 +21,13 @@ Consider the poor Victorian gentleman, struggling to comprehend a world where:
 
 Now imagine explaining to this chap that one day, machines wouldn't just calculate-they'd write poetry, paint pictures, and probably have stronger opinions about the Oxford comma than most of his contemporaries.
 
-## The Great Mechanical Horse Replacement Scandal
+## the great mechanical horse replacement scandal
 
 When the combustion engine did finally turn up fashionably late to the party, it caused quite the stir. Horses, who had enjoyed a monopoly on transportation for several millennia, suddenly found themselves rather surplus to requirements. The poor dears went from being essential infrastructure to nostalgic decoration faster than you could say "Model T Ford."
 
 But here's the delicious irony: we spent decades teaching machines to replace horse power, and now we're teaching them to replace brain power. It's rather like upgrading from a horse-drawn carriage to a rocket ship, only to discover the rocket ship can also write your correspondence and probably has better handwriting than you do.
 
-## What the Victorians Would Make of ChatGPT
+## what the victorians would make of chatgpt
 
 I suspect a Victorian encountering modern AI would go through the traditional five stages of technological grief:
 
@@ -41,19 +41,19 @@ I suspect a Victorian encountering modern AI would go through the traditional fi
 
 5. **Acceptance**: "I say, this mechanical brain has written rather a good limerick about my horse."
 
-## The Uncomfortable Truth About Progress
+## the uncomfortable truth about progress
 
 The uncomfortable truth-uncomfortable for horses, anyway-is that we've always been rather ruthless about replacing things that served us well. We traded horses for engines, candles for electric lights, and carrier pigeons for telegrams. Each time, we thought we'd reached the pinnacle of human achievement, only to discover we'd barely scratched the surface.
 
 Now we're trading human intelligence for artificial intelligence, which feels rather more personal than replacing a horse. After all, most of us were quite attached to our intelligence, limited though it may have been.
 
-## A Modest Proposal for Our AI Future
+## a modest proposal for our ai future
 
 Perhaps we should take a leaf from the horses' book. They didn't fight the combustion engine-they simply reinvented themselves as recreational companions and occasional racing entertainment. Humans might do well to consider a similar career pivot.
 
 Instead of competing with AI at thinking (a battle we're destined to lose with the same dignity as horses competing with motorcars), perhaps we should focus on the things machines find puzzling: procrastination, getting unreasonably emotional about sports teams, and the peculiar human ability to make tea exactly wrong despite having made it correctly thousands of times before.
 
-## In Conclusion
+## in conclusion
 
 Artificial intelligence isn't the first technology to make its predecessors redundant, nor will it be the last. The Victorians couldn't have imagined a world without horses, just as we struggle to imagine a world where machines do most of our thinking.
 
