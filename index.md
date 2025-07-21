@@ -3,31 +3,28 @@ title: Felix's Digital Garden
 description: Thoughts, code, and everything in between
 ---
 
-<div class="home-intro">
-    <h1 class="home-title">Felix's Digital Garden</h1>
-    <p class="home-subtitle">where ideas grow slowly and bugs are features</p>
-    
-    <div class="home-stats">
-        <div class="stat-item">
-            <div class="stat-number mono" id="totalPosts">{{ site.posts.size }}</div>
-            <div>posts written</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number mono" id="totalViews">0</div>
-            <div>total views</div>
-        </div>
-                <div class="stat-item">
-            <div class="stat-number mono" id="typoCount">∞</div>
-            <div>typos fixed</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number mono">{{ 'now' | date: '%Y' | minus: 1995 }}</div>
-            <div>years debugging</div>
-        </div>
-    </div>
+<div class="intro-text">
+    <p><em>A modest collection of thoughts that probably should have stayed in my head, but didn't.</em></p>
 </div>
 
-<section class="blog-posts">
+<div class="home-stats">
+    <div class="stat-item">
+        <div class="stat-number mono" id="totalPosts">{{ site.posts.size }}</div>
+        <div>posts written</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number mono" id="totalViews">0</div>
+        <div>total views</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number mono" id="typoCount">∞</div>
+        <div>typos fixed</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-number mono">{{ 'now' | date: '%Y' | minus: 1995 }}</div>
+        <div>years debugging</div>
+    </div>
+</div><section class="blog-posts">
     {% for post in site.posts %}
     <article class="blog-post">
         <header>
@@ -77,6 +74,21 @@ description: Thoughts, code, and everything in between
 <style>
 /* Page-specific styles */
 .mono { font-family: var(--font-mono); }
+
+.intro-text {
+    text-align: center;
+    margin-bottom: var(--space-16);
+    padding: var(--space-8) 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.intro-text p {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0;
+}
 
 .tags {
     margin-left: var(--space-3);
