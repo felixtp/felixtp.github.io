@@ -409,19 +409,55 @@ class VintageAnalytics {
 
     initWorldMap() {
         const mapContainer = document.getElementById('world-map');
+        const countries = this.data.countries;
+        const countriesCount = Object.keys(countries).length;
         
-        // Simple vintage-style world representation
+        // Vintage ASCII-style world map
         mapContainer.innerHTML = `
-            <div style="text-align: center; padding: var(--space-8);">
-                <div style="font-family: var(--font-mono); color: var(--text-secondary); margin-bottom: var(--space-4);">
+            <div style="font-family: var(--font-mono); line-height: 1.2; text-align: center;">
+                <div style="color: var(--text-secondary); margin-bottom: var(--space-4); font-size: var(--font-size-sm);">
                     Visitor Geography (Privacy-First Tracking)
                 </div>
-                <div style="font-size: 3rem; margin: var(--space-8) 0;">
-                    🌍 ${Object.keys(this.data.countries).length} countries visited
+                
+                <div style="font-size: var(--font-size-xs); color: var(--text-tertiary); margin-bottom: var(--space-6);">
+<pre style="margin: 0; color: var(--vintage-green);">
+                 .-""""""-.
+               .'          '.
+              /   O      O   \\
+             :           \`    :
+             |                |
+             :    .------.    :
+              \\  '        '  /
+               '.  \`------'  .'
+                 '-.......-'
+               
+           🌍 VISITOR TRACKING MAP 🌍
+</pre>
                 </div>
-                <div style="font-family: var(--font-mono); font-size: var(--font-size-sm); color: var(--text-tertiary);">
-                    Location data approximated via IP geolocation<br>
-                    No personal information stored
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-4); text-align: left; margin: var(--space-6) 0;">
+                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="color: var(--vintage-amber); font-weight: 600; margin-bottom: var(--space-2);">
+                            CONTINENTAL REACH
+                        </div>
+                        <div style="color: var(--text-primary);">
+                            📍 ${countriesCount} ${countriesCount === 1 ? 'country' : 'countries'} visited
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                        <div style="color: var(--vintage-rust); font-weight: 600; margin-bottom: var(--space-2);">
+                            PRIVACY STATUS
+                        </div>
+                        <div style="color: var(--text-primary);">
+                            🔒 No personal data stored
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-8); font-size: var(--font-size-xs); color: var(--text-tertiary);">
+                    <div>Approximate location via IP geolocation</div>
+                    <div>Country-level data only • No individual tracking</div>
                 </div>
             </div>
         `;
