@@ -5,7 +5,6 @@ Allow: /
 Disallow: /.git/
 Disallow: /_config.yml
 Disallow: /Gemfile*
-Disallow: /_headers
 Disallow: /.gitignore
 Disallow: /README.md
 Disallow: /CLAUDE.md
