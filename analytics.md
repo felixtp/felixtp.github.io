@@ -247,6 +247,175 @@ permalink: /analytics.html
 </style>
 
 <script>
+// Vintage Analytics Display - Reads from Global Tracking
+class VintageAnalytics {
+    constructor() {
+        this.storageKey = 'vintage-blog-analytics';
+        this.data = this.loadData();
+        this.updateDisplays();
+        
+        // Refresh data every 5 seconds to show real-time updates
+        setInterval(() => {
+            this.data = this.loadData();
+            this.updateDisplays();
+        }, 5000);
+    }
+
+    loadData() {
+        const stored = localStorage.getItem(this.storageKey);
+        return stored ? JSON.parse(stored) : {
+            sessions: [],
+            posts: {},
+            countries: {},
+            totalViews: 0,
+            totalVisitors: 0
+        };
+    }
+
+    updateDisplays() {
+        // Update basic stats
+        document.getElementById('total-visitors').textContent = this.data.totalVisitors || 0;
+        document.getElementById('total-views').textContent = this.data.totalViews || 0;
+        document.getElementById('countries-count').textContent = Object.keys(this.data.countries || {}).length || 0;
+        
+        // Calculate average visits per visitor
+        const avgVisits = this.data.totalVisitors > 0 ? (this.data.totalViews / this.data.totalVisitors).toFixed(1) : '0';
+        document.getElementById('avg-session').textContent = avgVisits + ' visits';
+
+        // Update displays
+        this.updateTopPosts();
+        this.updateCountryList();
+        this.initWorldMap();
+    }
+
+    updateTopPosts() {
+        const container = document.getElementById('top-posts');
+        const posts = Object.entries(this.data.posts || {})
+            .sort(([,a], [,b]) => b.views - a.views)
+            .slice(0, 5);
+
+        if (posts.length === 0) {
+            container.innerHTML = '<p class="vintage-subtitle">No post data yet - keep writing!</p>';
+            return;
+        }
+
+        container.innerHTML = posts.map(([path, data], index) => `
+            <div class="post-rank">
+                <span class="post-number">${index + 1}.</span>
+                <span class="post-title">${data.title || path}</span>
+                <span class="post-views">${data.views} views</span>
+            </div>
+        `).join('');
+    }
+
+    updateCountryList() {
+        const container = document.getElementById('country-list');
+        const countries = Object.entries(this.data.countries || {})
+            .sort(([,a], [,b]) => b.visitors - a.visitors);
+
+        if (countries.length === 0) {
+            container.innerHTML = '<p class="vintage-subtitle">No geographic data yet - visitors loading...</p>';
+            return;
+        }
+
+        container.innerHTML = countries.map(([code, data]) => `
+            <div class="country-item">
+                <span class="country-flag">${data.flag || '🌍'}</span>
+                <span class="country-name">${data.name || code}</span>
+                <span class="country-count">${data.visitors || 0} ${(data.visitors === 1) ? 'visitor' : 'visitors'}</span>
+                <span class="country-sessions" style="color: var(--text-tertiary); font-size: var(--font-size-sm); margin-left: var(--space-2);">(${data.sessions || 0} sessions)</span>
+            </div>
+        `).join('');
+    }
+
+    initWorldMap() {
+        const mapContainer = document.getElementById('world-map');
+        const countries = this.data.countries || {};
+        const countriesCount = Object.keys(countries).length;
+        
+        // Creative vintage ASCII world map
+        mapContainer.innerHTML = `
+            <div style="font-family: var(--font-mono); line-height: 1.2; text-align: center;">
+                <div style="color: var(--text-secondary); margin-bottom: var(--space-4); font-size: var(--font-size-sm); text-transform: uppercase; letter-spacing: 0.1em;">
+                    Global Wanderings • Privacy-First Cartography
+                </div>
+                
+                <div style="font-size: var(--font-size-xs); color: var(--vintage-green); margin-bottom: var(--space-6);">
+<pre style="margin: 0; line-height: 1.1;">
+    ╔════════════════════════════════════════════════════════════╗
+    ║                      VISITOR ATLAS                        ║
+    ╚════════════════════════════════════════════════════════════╝
+    
+        🌎 A M E R I C A S     🌍 E U R O P E     🌏 A S I A
+        
+           .-.   .-.   .-.         ╭─╮     ╭───╮         ╭─╮
+          (   )_(   )_(   )        │ │     │   │        ╱   ╲
+           '-'   '-'   '-'         ╰─╯     ╰───╯       ╱     ╲
+        
+        🗺️ TRACKING STATION OPERATIONAL 🗺️
+        
+    ┌──────────────┬──────────────┬──────────────┬──────────────┐
+    │  CONTINENT   │   VISITORS   │   STATUS     │   COVERAGE   │
+    ├──────────────┼──────────────┼──────────────┼──────────────┤
+    │   GLOBAL     │      ${countriesCount}       │   ACTIVE     │   COUNTRY    │
+    │   TRACKING   │   NATIONS    │   SECURE     │   LEVEL      │
+    └──────────────┴──────────────┴──────────────┴──────────────┘
+</pre>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-4); text-align: left; margin: var(--space-6) 0;">
+                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light); position: relative;">
+                        <div style="position: absolute; top: var(--space-2); right: var(--space-2); font-size: 1.5rem;">🌐</div>
+                        <div style="color: var(--vintage-amber); font-weight: 600; margin-bottom: var(--space-2); font-family: var(--font-mono);">
+                            TERRITORIAL REACH
+                        </div>
+                        <div style="color: var(--text-primary); font-family: var(--font-mono); font-size: var(--font-size-sm);">
+                            📍 ${countriesCount} ${countriesCount === 1 ? 'territory' : 'territories'} charted
+                        </div>
+                        <div style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: var(--space-2);">
+                            Geographic footprint expanding
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light); position: relative;">
+                        <div style="position: absolute; top: var(--space-2); right: var(--space-2); font-size: 1.5rem;">🔒</div>
+                        <div style="color: var(--vintage-rust); font-weight: 600; margin-bottom: var(--space-2); font-family: var(--font-mono);">
+                            PRIVACY PROTOCOL
+                        </div>
+                        <div style="color: var(--text-primary); font-family: var(--font-mono); font-size: var(--font-size-sm);">
+                            ✓ Zero personal data stored
+                        </div>
+                        <div style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: var(--space-2);">
+                            Anonymous wanderer tracking
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--bg-accent); padding: var(--space-4); border-radius: var(--border-radius); border: 1px solid var(--border-light); position: relative;">
+                        <div style="position: absolute; top: var(--space-2); right: var(--space-2); font-size: 1.5rem;">🧭</div>
+                        <div style="color: var(--vintage-green); font-weight: 600; margin-bottom: var(--space-2); font-family: var(--font-mono);">
+                            NAVIGATION METHOD
+                        </div>
+                        <div style="color: var(--text-primary); font-family: var(--font-mono); font-size: var(--font-size-sm);">
+                            📡 IP geolocation approximation
+                        </div>
+                        <div style="color: var(--text-tertiary); font-size: var(--font-size-xs); margin-top: var(--space-2);">
+                            Country-level precision only
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: var(--space-8); padding: var(--space-4); background: var(--bg-secondary); border-radius: var(--border-radius); border: 1px solid var(--border-light);">
+                    <div style="font-family: var(--font-mono); font-size: var(--font-size-xs); color: var(--text-tertiary); text-align: center;">
+                        <div style="margin-bottom: var(--space-2);">📜 CARTOGRAPHER'S NOTE 📜</div>
+                        <div>This digital atlas respects wanderer privacy whilst charting the curious souls</div>
+                        <div>who find their way to this corner of the internet's vast territories.</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+}
+
 // Initialize analytics display
 document.addEventListener('DOMContentLoaded', function() {
     const analytics = new VintageAnalytics();
