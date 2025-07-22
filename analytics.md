@@ -45,6 +45,15 @@ permalink: /analytics.html
 <div id="country-list" class="country-list"></div>
 
 <!-- Debug Section -->
+<div style="margin-top: var(--space-16); padding: var(--space-6); background: var(--bg-accent); border: 1px solid var(--border-light); border-radius: var(--border-radius);">
+    <h3 style="font-family: var(--font-mono); color: var(--vintage-rust); margin-bottom: var(--space-4);">Debug Analytics</h3>
+    <button id="debug-analytics" style="background: var(--vintage-green); color: white; border: none; padding: var(--space-2) var(--space-4); border-radius: var(--border-radius); font-family: var(--font-mono); cursor: pointer;">Show Raw Data</button>
+    <button id="reset-analytics" style="background: var(--vintage-rust); color: white; border: none; padding: var(--space-2) var(--space-4); border-radius: var(--border-radius); font-family: var(--font-mono); cursor: pointer; margin-left: var(--space-2);">Reset All Data</button>
+    <button id="force-new-visitor" style="background: var(--vintage-amber); color: black; border: none; padding: var(--space-2) var(--space-4); border-radius: var(--border-radius); font-family: var(--font-mono); cursor: pointer; margin-left: var(--space-2);">Force New Visitor</button>
+    <pre id="debug-output" style="margin-top: var(--space-4); font-family: var(--font-mono); font-size: var(--font-size-xs); background: var(--bg-secondary); padding: var(--space-4); border-radius: var(--border-radius); display: none; max-height: 300px; overflow-y: auto;"></pre>
+</div>
+
+<!-- Debug Section -->
 <div style="margin-top: var(--space-16); padding: var(--space-4); background: var(--bg-accent); border: 1px solid var(--border-light); border-radius: var(--border-radius);">
     <h3 style="font-family: var(--font-mono); font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: var(--space-4);">🔧 Debug Tools</h3>
     <button onclick="debugAnalytics()" style="background: var(--vintage-green); color: white; border: none; padding: var(--space-2) var(--space-4); border-radius: var(--border-radius); font-family: var(--font-mono); font-size: var(--font-size-sm); cursor: pointer; margin-right: var(--space-2);">Show Debug Info</button>
@@ -530,10 +539,56 @@ class VintageAnalytics {
     }
 }
 
+        `;
+    }
+}
+
 // Initialize analytics display
 document.addEventListener('DOMContentLoaded', function() {
-    new VintageAnalytics();
+    const analytics = new VintageAnalytics();
+    
+    // Debug functions
+    document.getElementById('debug-analytics').addEventListener('click', function() {
+        const debugOutput = document.getElementById('debug-output');
+        const rawData = localStorage.getItem('vintage-blog-analytics');
+        const visitorId = localStorage.getItem('vintage-visitor-id');
+        
+        const debugInfo = {
+            currentVisitorId: visitorId,
+            analyticsData: rawData ? JSON.parse(rawData) : null,
+            localStorage: {
+                'vintage-blog-analytics': rawData,
+                'vintage-visitor-id': visitorId
+            },
+            browserInfo: {
+                userAgent: navigator.userAgent,
+                language: navigator.language,
+                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+            }
+        };
+        
+        debugOutput.textContent = JSON.stringify(debugInfo, null, 2);
+        debugOutput.style.display = 'block';
+        
+        console.log('🔍 Debug Info:', debugInfo);
+    });
+    
+    document.getElementById('reset-analytics').addEventListener('click', function() {
+        if (confirm('Are you sure you want to reset all analytics data? This cannot be undone.')) {
+            localStorage.removeItem('vintage-blog-analytics');
+            localStorage.removeItem('vintage-visitor-id');
+            location.reload();
+        }
+    });
+    
+    document.getElementById('force-new-visitor').addEventListener('click', function() {
+        if (confirm('Force create a new visitor? This will trigger country detection.')) {
+            localStorage.removeItem('vintage-visitor-id');
+            location.reload();
+        }
+    });
 });
+</script>
 
 // Debug functions
 function debugAnalytics() {
