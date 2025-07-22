@@ -723,65 +723,40 @@
             }
 
             init() {
-                // Get or create visitor ID
-                let visitorId = localStorage.getItem('vintage-visitor-id');
-                if (!visitorId) {
-                    visitorId = 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                    localStorage.setItem('vintage-visitor-id', visitorId);
-                }
-
-                // Load existing data
-                let analytics = JSON.parse(localStorage.getItem(this.storageKey) || '{}');
-                if (!analytics.visitors) analytics.visitors = {};
-                if (!analytics.posts) analytics.posts = {};
-                if (!analytics.countries) analytics.countries = {};
-                if (!analytics.totalVisitors) analytics.totalVisitors = 0;
-                if (!analytics.totalViews) analytics.totalViews = 0;
-
-                // Track this visit
-                this.trackVisit(visitorId, analytics);
+                // Create session-based visitor tracking
+                this.trackSession();
             }
 
-            async trackVisit(visitorId, analytics) {
+            async trackSession() {
                 const currentPath = window.location.pathname;
-                const isNewVisitor = !analytics.visitors[visitorId];
                 
-                console.log('📊 Tracking visit:', { visitorId, currentPath, isNewVisitor });
-                
-                // Always detect current session country for accurate geographic tracking
+                // Always detect country for current session
                 const currentCountry = await this.detectCountry();
-                console.log('🌍 Detected country for this session:', currentCountry);
+                
+                // Load existing analytics
+                let analytics = JSON.parse(localStorage.getItem(this.storageKey) || '{}');
+                if (!analytics.sessions) analytics.sessions = [];
+                if (!analytics.posts) analytics.posts = {};
+                if (!analytics.countries) analytics.countries = {};
+                if (!analytics.totalViews) analytics.totalViews = 0;
 
-                // Initialize visitor if new
-                if (isNewVisitor) {
-                    analytics.totalVisitors++;
-                    analytics.visitors[visitorId] = {
-                        firstVisit: new Date().toISOString(),
-                        visits: 0,
-                        countries: {} // Track all countries this visitor has visited from
-                    };
-                    console.log('🆕 New visitor created');
+                // Create session entry
+                const sessionData = {
+                    timestamp: new Date().toISOString(),
+                    path: currentPath,
+                    country: currentCountry,
+                    userAgent: navigator.userAgent.substring(0, 100) // For basic bot detection
+                };
+
+                // Add session to history
+                analytics.sessions.push(sessionData);
+                
+                // Keep only last 1000 sessions to prevent storage bloat
+                if (analytics.sessions.length > 1000) {
+                    analytics.sessions = analytics.sessions.slice(-1000);
                 }
 
-                // Record this session's country visit
-                if (currentCountry && currentCountry.code && currentCountry.code !== 'Unknown') {
-                    if (!analytics.visitors[visitorId].countries[currentCountry.code]) {
-                        analytics.visitors[visitorId].countries[currentCountry.code] = {
-                            name: currentCountry.name,
-                            flag: currentCountry.flag,
-                            visits: 0,
-                            firstSeen: new Date().toISOString()
-                        };
-                    }
-                    analytics.visitors[visitorId].countries[currentCountry.code].visits++;
-                    analytics.visitors[visitorId].countries[currentCountry.code].lastSeen = new Date().toISOString();
-                    console.log('🌍 Country visit recorded:', currentCountry.code, analytics.visitors[visitorId].countries[currentCountry.code]);
-                } else {
-                    console.log('⚠️ No valid country detected for this session');
-                }
-
-                // Increment visit count
-                analytics.visitors[visitorId].visits++;
+                // Increment total views
                 analytics.totalViews++;
 
                 // Track post views
@@ -795,85 +770,96 @@
                     analytics.posts[currentPath].views++;
                 }
 
-                // Update global country tracking - count unique visitors per country
+                // Rebuild country statistics from all sessions
                 analytics.countries = {};
-                Object.values(analytics.visitors).forEach(visitor => {
-                    if (visitor.countries) {
-                        Object.entries(visitor.countries).forEach(([countryCode, countryData]) => {
-                            if (!analytics.countries[countryCode]) {
-                                analytics.countries[countryCode] = {
-                                    name: countryData.name,
-                                    flag: countryData.flag,
-                                    visitors: 0
-                                };
-                            }
-                            analytics.countries[countryCode].visitors++;
-                        });
+                const uniqueCountryVisitors = new Set();
+                
+                analytics.sessions.forEach(session => {
+                    if (session.country && session.country.code && session.country.code !== 'Unknown') {
+                        const countryCode = session.country.code;
+                        
+                        // Count unique visitors per country using simplified fingerprint
+                        const visitorFingerprint = this.createVisitorFingerprint(session);
+                        const countryVisitorKey = `${countryCode}_${visitorFingerprint}`;
+                        uniqueCountryVisitors.add(countryVisitorKey);
+                        
+                        // Initialize country if new
+                        if (!analytics.countries[countryCode]) {
+                            analytics.countries[countryCode] = {
+                                name: session.country.name,
+                                flag: session.country.flag,
+                                visitors: 0,
+                                sessions: 0
+                            };
+                        }
+                        
+                        analytics.countries[countryCode].sessions++;
                     }
                 });
 
-                console.log('📊 Final analytics update:', {
-                    totalVisitors: analytics.totalVisitors,
-                    totalViews: analytics.totalViews,
-                    countries: analytics.countries
+                // Count unique visitors per country
+                uniqueCountryVisitors.forEach(countryVisitorKey => {
+                    const countryCode = countryVisitorKey.split('_')[0];
+                    if (analytics.countries[countryCode]) {
+                        analytics.countries[countryCode].visitors++;
+                    }
                 });
+
+                // Calculate total unique visitors across all countries
+                analytics.totalVisitors = new Set(
+                    analytics.sessions.map(session => this.createVisitorFingerprint(session))
+                ).size;
 
                 // Save updated analytics
                 localStorage.setItem(this.storageKey, JSON.stringify(analytics));
             }
 
+            createVisitorFingerprint(session) {
+                // Create a simple visitor fingerprint (not for tracking, just for counting unique visitors)
+                const ua = session.userAgent || navigator.userAgent;
+                const screen = `${screen.width}x${screen.height}`;
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                return btoa(`${ua.substring(0,50)}_${screen}_${timezone}`).substring(0, 20);
+            }
+
             async detectCountry() {
                 try {
-                    // Try multiple APIs with better error handling
-                    const apis = [
-                        'https://ipapi.co/json/',
-                        'https://ipinfo.io/json',
-                        'https://ip-api.com/json/'
-                    ];
+                    // Use the most reliable IP geolocation service
+                    const response = await fetch('https://ipapi.co/json/', {
+                        method: 'GET',
+                        cache: 'no-cache'
+                    });
                     
-                    for (const apiUrl of apis) {
-                        try {
-                            const response = await fetch(apiUrl, {
-                                method: 'GET',
-                                headers: { 'Accept': 'application/json' },
-                                cache: 'no-cache'
-                            });
-                            
-                            if (response.ok) {
-                                const data = await response.json();
-                                console.log('🌍 API Response from', apiUrl, ':', data);
-                                
-                                // Parse different API response formats
-                                let countryCode, countryName;
-                                
-                                if (data.country_code || data.countryCode) {
-                                    countryCode = data.country_code || data.countryCode;
-                                    countryName = data.country_name || data.country || countryCode;
-                                } else if (data.country) {
-                                    countryCode = data.country;
-                                    countryName = data.country;
-                                }
-                                
-                                if (countryCode && countryCode !== 'Unknown' && countryCode.length === 2) {
-                                    const result = {
-                                        code: countryCode,
-                                        name: countryName || countryCode,
-                                        flag: this.getCountryFlag(countryCode)
-                                    };
-                                    console.log('🌍 Country detected:', result);
-                                    return result;
-                                }
-                            }
-                        } catch (apiError) {
-                            console.log('🌍 API failed:', apiUrl, apiError);
-                            continue;
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.country_code && data.country_code.length === 2) {
+                            return {
+                                code: data.country_code,
+                                name: data.country_name || data.country_code,
+                                flag: this.getCountryFlag(data.country_code)
+                            };
                         }
                     }
 
-                    console.log('🌍 All APIs failed, using fallback');
+                    // Fallback to ipinfo.io
+                    const fallback = await fetch('https://ipinfo.io/json', {
+                        method: 'GET',
+                        cache: 'no-cache'
+                    });
+                    
+                    if (fallback.ok) {
+                        const fallbackData = await fallback.json();
+                        if (fallbackData.country && fallbackData.country.length === 2) {
+                            return {
+                                code: fallbackData.country,
+                                name: fallbackData.country,
+                                flag: this.getCountryFlag(fallbackData.country)
+                            };
+                        }
+                    }
+
                     return { code: 'Unknown', name: 'Unknown', flag: '🌍' };
                 } catch (error) {
-                    console.error('🌍 Country detection completely failed:', error);
                     return { code: 'Unknown', name: 'Unknown', flag: '🌍' };
                 }
             }
