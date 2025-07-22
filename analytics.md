@@ -263,7 +263,7 @@ class VintageAnalytics {
     loadData() {
         const stored = localStorage.getItem(this.storageKey);
         return stored ? JSON.parse(stored) : {
-            visitors: {},
+            sessions: [],
             posts: {},
             countries: {},
             totalViews: 0,
@@ -278,8 +278,7 @@ class VintageAnalytics {
         document.getElementById('countries-count').textContent = Object.keys(this.data.countries || {}).length || 0;
         
         // Calculate average visits per visitor
-        const totalVisits = Object.values(this.data.visitors || {}).reduce((sum, visitor) => sum + (visitor.visits || 0), 0);
-        const avgVisits = this.data.totalVisitors > 0 ? (totalVisits / this.data.totalVisitors).toFixed(1) : '0';
+        const avgVisits = this.data.totalVisitors > 0 ? (this.data.totalViews / this.data.totalVisitors).toFixed(1) : '0';
         document.getElementById('avg-session').textContent = avgVisits + ' visits';
 
         // Update displays
