@@ -1,5 +1,6 @@
 ---
 title: Analytics
+layout: default
 permalink: /analytics.html
 ---
 
@@ -43,6 +44,18 @@ permalink: /analytics.html
 ## visitor geography
 
 <div id="country-list" class="country-list"></div>
+
+<!-- Debug section (can be removed later) -->
+<div style="margin-top: var(--space-8); padding: var(--space-4); background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: var(--border-radius);">
+    <details>
+        <summary style="cursor: pointer; color: var(--text-secondary); font-family: var(--font-mono);">🔧 Debug Analytics Data</summary>
+        <div style="margin-top: var(--space-4);">
+            <button onclick="window.debugAnalytics()" style="padding: var(--space-2) var(--space-4); background: var(--accent-color); color: white; border: none; border-radius: var(--border-radius); cursor: pointer; font-family: var(--font-mono);">Show Raw Data</button>
+            <button onclick="window.simulateGermany()" style="margin-left: var(--space-2); padding: var(--space-2) var(--space-4); background: var(--vintage-green); color: white; border: none; border-radius: var(--border-radius); cursor: pointer; font-family: var(--font-mono);">🇩🇪 Simulate Berlin Visit</button>
+            <div id="debug-output" style="margin-top: var(--space-4); font-family: var(--font-mono); font-size: var(--font-size-xs); background: var(--bg-primary); padding: var(--space-3); border-radius: var(--border-radius); max-height: 200px; overflow-y: auto;"></div>
+        </div>
+    </details>
+</div>
 
 <style>
 /* Analytics Page Styling */
@@ -387,4 +400,76 @@ class VintageAnalytics {
 document.addEventListener('DOMContentLoaded', function() {
     const analytics = new VintageAnalytics();
 });
+
+// Debug functions (remove after testing)
+window.debugAnalytics = function() {
+    const data = localStorage.getItem('vintage-blog-analytics');
+    const output = document.getElementById('debug-output');
+    if (data) {
+        const parsed = JSON.parse(data);
+        output.innerHTML = `<pre>${JSON.stringify(parsed, null, 2)}</pre>`;
+    } else {
+        output.innerHTML = 'No analytics data found in localStorage';
+    }
+};
+
+window.simulateGermany = function() {
+    // Create a sample session from Germany
+    let analytics = JSON.parse(localStorage.getItem('vintage-blog-analytics') || '{}');
+    if (!analytics.sessions) analytics.sessions = [];
+    if (!analytics.posts) analytics.posts = {};
+    if (!analytics.countries) analytics.countries = {};
+    if (!analytics.totalViews) analytics.totalViews = 0;
+
+    const sessionData = {
+        timestamp: new Date().toISOString(),
+        path: '/analytics.html',
+        country: {
+            code: 'DE',
+            name: 'Germany',
+            flag: '🇩🇪'
+        },
+        userAgent: 'Berlin-Browser/1.0'
+    };
+
+    analytics.sessions.push(sessionData);
+    analytics.totalViews++;
+
+    // Rebuild country statistics
+    analytics.countries = {};
+    const uniqueCountryVisitors = new Set();
+    
+    analytics.sessions.forEach(session => {
+        if (session.country && session.country.code && session.country.code !== 'Unknown') {
+            const countryCode = session.country.code;
+            const visitorFingerprint = 'berlin_visitor_001';
+            const countryVisitorKey = `${countryCode}_${visitorFingerprint}`;
+            uniqueCountryVisitors.add(countryVisitorKey);
+            
+            if (!analytics.countries[countryCode]) {
+                analytics.countries[countryCode] = {
+                    name: session.country.name,
+                    flag: session.country.flag,
+                    visitors: 0,
+                    sessions: 0
+                };
+            }
+            
+            analytics.countries[countryCode].sessions++;
+        }
+    });
+
+    uniqueCountryVisitors.forEach(countryVisitorKey => {
+        const countryCode = countryVisitorKey.split('_')[0];
+        if (analytics.countries[countryCode]) {
+            analytics.countries[countryCode].visitors++;
+        }
+    });
+
+    analytics.totalVisitors = uniqueCountryVisitors.size;
+    localStorage.setItem('vintage-blog-analytics', JSON.stringify(analytics));
+    
+    alert('🇩🇪 Berlin visit simulated! Refreshing display...');
+    location.reload();
+};
 </script>
