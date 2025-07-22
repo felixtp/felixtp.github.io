@@ -262,16 +262,21 @@ class VintageAnalytics {
 
     loadData() {
         const stored = localStorage.getItem(this.storageKey);
-        return stored ? JSON.parse(stored) : {
+        console.log('Analytics loading data:', stored); // Debug log
+        const data = stored ? JSON.parse(stored) : {
             sessions: [],
             posts: {},
             countries: {},
             totalViews: 0,
             totalVisitors: 0
         };
+        console.log('Parsed analytics data:', data); // Debug log
+        return data;
     }
 
     updateDisplays() {
+        console.log('Updating displays with data:', this.data); // Debug log
+        
         // Update basic stats
         document.getElementById('total-visitors').textContent = this.data.totalVisitors || 0;
         document.getElementById('total-views').textContent = this.data.totalViews || 0;
@@ -319,9 +324,10 @@ class VintageAnalytics {
 
         container.innerHTML = countries.map(([code, data]) => `
             <div class="country-item">
-                <span class="country-flag">${data.flag}</span>
-                <span class="country-name">${data.name}</span>
-                <span class="country-count">${data.visitors} ${data.visitors === 1 ? 'visitor' : 'visitors'}</span>
+                <span class="country-flag">${data.flag || '🌍'}</span>
+                <span class="country-name">${data.name || code}</span>
+                <span class="country-count">${data.visitors || 0} ${(data.visitors === 1) ? 'visitor' : 'visitors'}</span>
+                <span class="country-sessions" style="color: var(--text-tertiary); font-size: var(--font-size-sm); margin-left: var(--space-2);">(${data.sessions || 0} sessions)</span>
             </div>
         `).join('');
     }
