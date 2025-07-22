@@ -815,36 +815,76 @@
                 try {
                     console.log('🌍 Attempting to detect country...');
                     
-                    // Try primary API first
-                    let response = await fetch('https://ipapi.co/json/');
-                    
-                    if (!response.ok) {
-                        console.log('🌍 Primary API failed, trying fallback...');
-                        // Fallback to a different API
-                        response = await fetch('https://api.ipify.org?format=json');
-                        if (response.ok) {
-                            const ipData = await response.json();
-                            console.log('🌍 Got IP:', ipData.ip, 'but no country data from fallback');
+                    // Try multiple APIs in sequence for better reliability
+                    const apis = [
+                        {
+                            url: 'https://ipapi.co/json/',
+                            parser: (data) => ({
+                                code: data.country_code || data.country,
+                                name: data.country_name || data.country
+                            })
+                        },
+                        {
+                            url: 'https://api.ipify.org?format=json',
+                            parser: (data) => {
+                                // This API only returns IP, so we'll need another call
+                                console.log('🌍 Got IP from ipify:', data.ip, 'but no country data');
+                                return null;
+                            }
+                        },
+                        {
+                            url: 'https://api.db-ip.com/v2/free/self',
+                            parser: (data) => ({
+                                code: data.countryCode,
+                                name: data.countryName
+                            })
+                        },
+                        {
+                            url: 'https://ipinfo.io/json',
+                            parser: (data) => ({
+                                code: data.country,
+                                name: data.country // ipinfo doesn't provide full country names in free tier
+                            })
                         }
-                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    ];
+                    
+                    for (const api of apis) {
+                        try {
+                            console.log('🌍 Trying API:', api.url);
+                            const response = await fetch(api.url);
+                            
+                            if (!response.ok) {
+                                console.log('🌍 API failed with status:', response.status);
+                                continue;
+                            }
+                            
+                            const data = await response.json();
+                            console.log('🌍 API Response:', data);
+                            
+                            const parsed = api.parser(data);
+                            if (!parsed || !parsed.code || parsed.code === 'Unknown') {
+                                console.log('🌍 No valid country data from this API');
+                                continue;
+                            }
+                            
+                            const result = {
+                                code: parsed.code,
+                                name: parsed.name || parsed.code,
+                                flag: this.getCountryFlag(parsed.code)
+                            };
+                            
+                            console.log('🌍 Country successfully detected:', result);
+                            return result;
+                        } catch (apiError) {
+                            console.log('🌍 API error:', api.url, apiError);
+                            continue;
+                        }
                     }
                     
-                    const data = await response.json();
-                    console.log('🌍 IP API Response:', data);
-                    
-                    const countryCode = data.country_code || data.country || 'Unknown';
-                    const countryName = data.country_name || data.name || 'Unknown';
-                    
-                    const result = {
-                        code: countryCode,
-                        name: countryName,
-                        flag: this.getCountryFlag(countryCode)
-                    };
-                    
-                    console.log('🌍 Country detected:', result);
-                    return result;
+                    // If all APIs fail, return fallback
+                    throw new Error('All country detection APIs failed');
                 } catch (error) {
-                    console.error('🌍 Country detection failed:', error);
+                    console.error('🌍 Country detection completely failed:', error);
                     const fallback = { code: 'Unknown', name: 'Unknown', flag: '🌍' };
                     console.log('🌍 Using fallback:', fallback);
                     return fallback;
@@ -855,10 +895,35 @@
                 if (!countryCode || countryCode === 'Unknown') return '🌍';
                 
                 const flags = {
+                    // Major countries
                     'US': '🇺🇸', 'GB': '🇬🇧', 'CA': '🇨🇦', 'AU': '🇦🇺', 'DE': '🇩🇪',
                     'FR': '🇫🇷', 'JP': '🇯🇵', 'CN': '🇨🇳', 'IN': '🇮🇳', 'BR': '🇧🇷',
                     'RU': '🇷🇺', 'IT': '🇮🇹', 'ES': '🇪🇸', 'NL': '🇳🇱', 'SE': '🇸🇪',
-                    'NO': '🇳🇴', 'DK': '🇩🇰', 'FI': '🇫🇮', 'NZ': '🇳🇿', 'IE': '🇮🇪'
+                    'NO': '🇳🇴', 'DK': '🇩🇰', 'FI': '🇫🇮', 'NZ': '🇳🇿', 'IE': '🇮🇪',
+                    
+                    // European countries
+                    'AT': '🇦🇹', 'BE': '🇧🇪', 'CH': '🇨🇭', 'CZ': '🇨🇿', 'PL': '🇵🇱',
+                    'PT': '🇵🇹', 'GR': '🇬🇷', 'HU': '🇭🇺', 'RO': '🇷🇴', 'BG': '🇧🇬',
+                    'HR': '🇭🇷', 'SK': '🇸🇰', 'SI': '🇸🇮', 'EE': '🇪🇪', 'LV': '🇱🇻',
+                    'LT': '🇱🇹', 'LU': '🇱🇺', 'MT': '🇲🇹', 'CY': '🇨🇾',
+                    
+                    // Asian countries
+                    'KR': '🇰🇷', 'TH': '🇹🇭', 'SG': '🇸🇬', 'MY': '🇲🇾', 'ID': '🇮🇩',
+                    'PH': '🇵🇭', 'VN': '🇻🇳', 'TW': '🇹🇼', 'HK': '🇭🇰', 'PK': '🇵🇰',
+                    'BD': '🇧🇩', 'LK': '🇱🇰', 'NP': '🇳🇵', 'MN': '🇲🇳', 'KZ': '��🇿',
+                    
+                    // Middle East & Africa
+                    'IL': '🇮🇱', 'AE': '🇦🇪', 'SA': '🇸🇦', 'EG': '🇪🇬', 'ZA': '🇿🇦',
+                    'NG': '🇳🇬', 'KE': '🇰�', 'MA': '🇲🇦', 'ET': '🇪🇹', 'GH': '🇬🇭',
+                    'TR': '🇹🇷', 'IR': '🇮🇷', 'IQ': '�🇮�', 'JO': '🇯🇴', 'LB': '🇱🇧',
+                    
+                    // Americas
+                    'MX': '🇲🇽', 'AR': '🇦🇷', 'CL': '🇨🇱', 'CO': '🇨🇴', 'PE': '🇵�🇪',
+                    'VE': '🇻🇪', 'UY': '🇺🇾', 'EC': '🇪🇨', 'BO': '🇧🇴', 'PY': '🇵🇾',
+                    'CR': '🇨🇷', 'PA': '🇵🇦', 'GT': '🇬🇹', 'CU': '🇨🇺', 'JM': '🇯🇲',
+                    
+                    // Oceania
+                    'FJ': '🇫🇯', 'PG': '🇵🇬', 'NC': '🇳🇨', 'VU': '🇻🇺', 'SB': '🇸🇧'
                 };
                 
                 return flags[countryCode] || '🌍';
