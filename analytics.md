@@ -44,6 +44,14 @@ permalink: /analytics.html
 
 <div id="country-list" class="country-list"></div>
 
+<!-- Debug Section -->
+<div style="margin-top: var(--space-16); padding: var(--space-4); background: var(--bg-accent); border: 1px solid var(--border-light); border-radius: var(--border-radius);">
+    <h3 style="font-family: var(--font-mono); font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: var(--space-4);">🔧 Debug Tools</h3>
+    <button onclick="debugAnalytics()" style="background: var(--vintage-green); color: white; border: none; padding: var(--space-2) var(--space-4); border-radius: var(--border-radius); font-family: var(--font-mono); font-size: var(--font-size-sm); cursor: pointer; margin-right: var(--space-2);">Show Debug Info</button>
+    <button onclick="clearAnalytics()" style="background: var(--vintage-rust); color: white; border: none; padding: var(--space-2) var(--space-4); border-radius: var(--border-radius); font-family: var(--font-mono); font-size: var(--font-size-sm); cursor: pointer; margin-right: var(--space-2);">Clear All Data</button>
+    <button onclick="simulateVisitor()" style="background: var(--vintage-amber); color: white; border: none; padding: var(--space-2) var(--space-4); border-radius: var(--border-radius); font-family: var(--font-mono); font-size: var(--font-size-sm); cursor: pointer;">Simulate New Visitor</button>
+</div>
+
 <style>
 /* Analytics Page Styling */
 .vintage-title {
@@ -526,4 +534,77 @@ class VintageAnalytics {
 document.addEventListener('DOMContentLoaded', function() {
     new VintageAnalytics();
 });
+
+// Debug functions
+function debugAnalytics() {
+    const data = JSON.parse(localStorage.getItem('vintage-blog-analytics') || '{}');
+    console.log('🔧 Complete Analytics Data:', data);
+    
+    alert(`Debug Info:
+📊 Total Visitors: ${data.totalVisitors || 0}
+📈 Total Views: ${data.totalViews || 0}
+🌍 Countries: ${Object.keys(data.countries || {}).length}
+👥 Visitor Records: ${Object.keys(data.visitors || {}).length}
+
+Countries detected:
+${Object.entries(data.countries || {}).map(([code, country]) => 
+    `${country.flag} ${country.name} (${code}): ${country.visitors} visitors`
+).join('\n')}
+
+Check browser console for full details.`);
+}
+
+function clearAnalytics() {
+    if (confirm('⚠️ This will clear all analytics data. Are you sure?')) {
+        localStorage.removeItem('vintage-blog-analytics');
+        localStorage.removeItem('vintage-visitor-id');
+        alert('🗑️ Analytics data cleared. Refresh the page to start fresh.');
+        location.reload();
+    }
+}
+
+function simulateVisitor() {
+    // Create a fake visitor from a different country for testing
+    const testCountries = [
+        { code: 'CA', name: 'Canada', flag: '🇨🇦' },
+        { code: 'DE', name: 'Germany', flag: '🇩🇪' },
+        { code: 'US', name: 'United States', flag: '🇺🇸' },
+        { code: 'GB', name: 'United Kingdom', flag: '🇬🇧' }
+    ];
+    
+    const randomCountry = testCountries[Math.floor(Math.random() * testCountries.length)];
+    const fakeVisitorId = 'test_visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    const data = JSON.parse(localStorage.getItem('vintage-blog-analytics') || '{}');
+    if (!data.visitors) data.visitors = {};
+    if (!data.countries) data.countries = {};
+    if (!data.totalVisitors) data.totalVisitors = 0;
+    
+    // Add fake visitor
+    data.totalVisitors++;
+    data.visitors[fakeVisitorId] = {
+        firstVisit: new Date().toISOString(),
+        visits: 1,
+        country: randomCountry
+    };
+    
+    // Update country stats
+    if (!data.countries[randomCountry.code]) {
+        data.countries[randomCountry.code] = {
+            name: randomCountry.name,
+            flag: randomCountry.flag,
+            visitors: 0
+        };
+    }
+    
+    const countryVisitors = Object.values(data.visitors).filter(v => 
+        v.country && v.country.code === randomCountry.code
+    ).length;
+    data.countries[randomCountry.code].visitors = countryVisitors;
+    
+    localStorage.setItem('vintage-blog-analytics', JSON.stringify(data));
+    
+    alert(`🎭 Simulated visitor from ${randomCountry.flag} ${randomCountry.name}!\nRefresh to see updated stats.`);
+    location.reload();
+}
 </script>
