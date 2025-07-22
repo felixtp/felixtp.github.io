@@ -230,122 +230,29 @@ permalink: /analytics.html
 </style>
 
 <script>
-// Vintage Analytics Engine - Privacy First
+// Vintage Analytics Display - Reads from Global Tracking
 class VintageAnalytics {
     constructor() {
         this.storageKey = 'vintage-blog-analytics';
-        this.sessionKey = 'vintage-session-' + Date.now();
         this.data = this.loadData();
-        this.initSession();
         this.updateDisplays();
+        
+        // Refresh data every 5 seconds to show real-time updates
+        setInterval(() => {
+            this.data = this.loadData();
+            this.updateDisplays();
+        }, 5000);
     }
 
     loadData() {
         const stored = localStorage.getItem(this.storageKey);
         return stored ? JSON.parse(stored) : {
             visitors: {},
-            sessions: {},
             posts: {},
             countries: {},
             totalVisitors: 0,
-            totalViews: 0,
-            firstVisit: new Date().toISOString()
+            totalViews: 0
         };
-    }
-
-    saveData() {
-        localStorage.setItem(this.storageKey, JSON.stringify(this.data));
-    }
-
-    async initSession() {
-        // Check if returning visitor
-        const visitorId = localStorage.getItem('vintage-visitor-id') || this.generateVisitorId();
-        localStorage.setItem('vintage-visitor-id', visitorId);
-
-        // Track new visitor
-        if (!this.data.visitors[visitorId]) {
-            this.data.totalVisitors++;
-            this.data.visitors[visitorId] = {
-                firstVisit: new Date().toISOString(),
-                sessions: 0,
-                views: 0,
-                country: await this.detectCountry()
-            };
-        }
-
-        // Track session
-        const sessionId = this.sessionKey;
-        this.data.visitors[visitorId].sessions++;
-        this.data.sessions[sessionId] = {
-            visitorId: visitorId,
-            startTime: new Date().toISOString(),
-            views: 0,
-            duration: 0
-        };
-
-        // Track page view
-        this.trackPageView(window.location.pathname, visitorId, sessionId);
-        this.saveData();
-    }
-
-    generateVisitorId() {
-        return 'visitor_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    }
-
-    async detectCountry() {
-        try {
-            // Use a free, privacy-friendly IP geolocation service
-            const response = await fetch('https://ipapi.co/json/');
-            const data = await response.json();
-            return {
-                code: data.country_code || 'Unknown',
-                name: data.country_name || 'Unknown',
-                flag: this.getCountryFlag(data.country_code)
-            };
-        } catch (error) {
-            console.log('Could not detect country:', error);
-            return { code: 'Unknown', name: 'Unknown', flag: '🌍' };
-        }
-    }
-
-    getCountryFlag(countryCode) {
-        if (!countryCode || countryCode === 'Unknown') return '🌍';
-        
-        const flags = {
-            'US': '🇺🇸', 'GB': '🇬🇧', 'CA': '🇨🇦', 'AU': '🇦🇺', 'DE': '🇩🇪',
-            'FR': '🇫🇷', 'JP': '🇯🇵', 'CN': '🇨🇳', 'IN': '🇮🇳', 'BR': '🇧🇷',
-            'RU': '🇷🇺', 'IT': '🇮🇹', 'ES': '🇪🇸', 'NL': '🇳🇱', 'SE': '🇸🇪',
-            'NO': '🇳🇴', 'DK': '🇩🇰', 'FI': '🇫🇮', 'NZ': '🇳🇿', 'IE': '🇮🇪'
-        };
-        
-        return flags[countryCode] || '🌍';
-    }
-
-    trackPageView(path, visitorId, sessionId) {
-        this.data.totalViews++;
-        this.data.visitors[visitorId].views++;
-        this.data.sessions[sessionId].views++;
-
-        // Track post views
-        if (path.includes('/2025/') || path.includes('/posts/')) {
-            if (!this.data.posts[path]) {
-                this.data.posts[path] = { views: 0, title: document.title };
-            }
-            this.data.posts[path].views++;
-        }
-
-        // Track country
-        const country = this.data.visitors[visitorId].country;
-        if (country && country.code !== 'Unknown') {
-            if (!this.data.countries[country.code]) {
-                this.data.countries[country.code] = {
-                    name: country.name,
-                    flag: country.flag,
-                    visitors: 0
-                };
-            }
-            this.data.countries[country.code].visitors++;
-        }
     }
 
     updateDisplays() {
@@ -354,17 +261,14 @@ class VintageAnalytics {
         document.getElementById('total-views').textContent = this.data.totalViews || 0;
         document.getElementById('countries-count').textContent = Object.keys(this.data.countries).length || 0;
         
-        // Calculate average session duration (mock for now)
-        const avgSession = Object.keys(this.data.sessions).length > 0 ? '2.3 min' : '0 min';
-        document.getElementById('avg-session').textContent = avgSession;
+        // Calculate average visits per visitor
+        const totalVisits = Object.values(this.data.visitors).reduce((sum, visitor) => sum + (visitor.visits || 0), 0);
+        const avgVisits = this.data.totalVisitors > 0 ? (totalVisits / this.data.totalVisitors).toFixed(1) : '0';
+        document.getElementById('avg-session').textContent = avgVisits + ' visits/visitor';
 
-        // Update top posts
+        // Update displays
         this.updateTopPosts();
-        
-        // Update country list
         this.updateCountryList();
-        
-        // Initialize world map
         this.initWorldMap();
     }
 
@@ -394,7 +298,7 @@ class VintageAnalytics {
             .sort(([,a], [,b]) => b.visitors - a.visitors);
 
         if (countries.length === 0) {
-            container.innerHTML = '<p class="vintage-subtitle">No geographic data yet</p>';
+            container.innerHTML = '<p class="vintage-subtitle">No geographic data yet - visitors loading...</p>';
             return;
         }
 
@@ -402,7 +306,7 @@ class VintageAnalytics {
             <div class="country-item">
                 <span class="country-flag">${data.flag}</span>
                 <span class="country-name">${data.name}</span>
-                <span class="country-count">${data.visitors}</span>
+                <span class="country-count">${data.visitors} ${data.visitors === 1 ? 'visitor' : 'visitors'}</span>
             </div>
         `).join('');
     }
@@ -488,6 +392,7 @@ class VintageAnalytics {
                         <div style="margin-bottom: var(--space-2);">📜 CARTOGRAPHER'S NOTE 📜</div>
                         <div>This digital atlas respects wanderer privacy whilst charting the curious souls</div>
                         <div>who find their way to this corner of the internet's vast territories.</div>
+                        <div style="margin-top: var(--space-2); color: var(--vintage-green);">Live tracking: Updates every 5 seconds</div>
                     </div>
                 </div>
             </div>
@@ -495,7 +400,7 @@ class VintageAnalytics {
     }
 }
 
-// Initialize vintage analytics
+// Initialize analytics display
 document.addEventListener('DOMContentLoaded', function() {
     new VintageAnalytics();
 });
