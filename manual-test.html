@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Manual Analytics Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        button { margin: 10px; padding: 10px 20px; }
+        .analytics-data { background: #f5f5f5; padding: 20px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>Manual Analytics Test</h1>
+    
+    <div>
+        <h2>Simulate Visits from Different Countries:</h2>
+        <button onclick="simulateVisit('DE', 'Germany')">🇩🇪 Germany (Berlin)</button>
+        <button onclick="simulateVisit('US', 'United States')">🇺🇸 United States</button>
+        <button onclick="simulateVisit('GB', 'United Kingdom')">🇬🇧 United Kingdom</button>
+        <button onclick="simulateVisit('AU', 'Australia')">🇦🇺 Australia</button>
+        <button onclick="simulateVisit('FR', 'France')">🇫🇷 France</button>
+    </div>
+    
+    <div>
+        <h2>Current Analytics Data:</h2>
+        <button onclick="refreshData()">Refresh Data</button>
+        <button onclick="clearData()">Clear All Data</button>
+        <div id="analytics-display" class="analytics-data"></div>
+    </div>
+    
+    <script>
+        const storageKey = 'vintage-blog-analytics';
+        
+        function getCountryFlag(countryCode) {
+            const flags = {
+                'US': '🇺🇸', 'GB': '🇬🇧', 'CA': '🇨🇦', 'AU': '🇦🇺', 'DE': '🇩🇪',
+                'FR': '🇫🇷', 'JP': '🇯🇵', 'CN': '🇨🇳', 'IN': '🇮🇳', 'BR': '🇧🇷',
+                'IT': '🇮🇹', 'ES': '🇪🇸', 'NL': '🇳🇱', 'SE': '🇸🇪'
+            };
+            return flags[countryCode] || '🌍';
+        }
+        
+        function createVisitorFingerprint() {
+            const ua = navigator.userAgent;
+            const screen = `${screen.width}x${screen.height}`;
+            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            return btoa(`${ua.substring(0,50)}_${screen}_${timezone}`).substring(0, 20);
+        }
+        
+        function simulateVisit(countryCode, countryName) {
+            // Load existing analytics
+            let analytics = JSON.parse(localStorage.getItem(storageKey) || '{}');
+            if (!analytics.sessions) analytics.sessions = [];
+            if (!analytics.posts) analytics.posts = {};
+            if (!analytics.countries) analytics.countries = {};
+            if (!analytics.totalViews) analytics.totalViews = 0;
+
+            // Create session entry
+            const sessionData = {
+                timestamp: new Date().toISOString(),
+                path: window.location.pathname,
+                country: {
+                    code: countryCode,
+                    name: countryName,
+                    flag: getCountryFlag(countryCode)
+                },
+                userAgent: navigator.userAgent.substring(0, 100)
+            };
+
+            // Add session to history
+            analytics.sessions.push(sessionData);
+            
+            // Increment total views
+            analytics.totalViews++;
+
+            // Rebuild country statistics from all sessions
+            analytics.countries = {};
+            const uniqueCountryVisitors = new Set();
+            
+            analytics.sessions.forEach(session => {
+                if (session.country && session.country.code && session.country.code !== 'Unknown') {
+                    const countryCode = session.country.code;
+                    
+                    // Count unique visitors per country using simplified fingerprint
+                    const visitorFingerprint = createVisitorFingerprint();
+                    const countryVisitorKey = `${countryCode}_${visitorFingerprint}`;
+                    uniqueCountryVisitors.add(countryVisitorKey);
+                    
+                    // Initialize country if new
+                    if (!analytics.countries[countryCode]) {
+                        analytics.countries[countryCode] = {
+                            name: session.country.name,
+                            flag: session.country.flag,
+                            visitors: 0,
+                            sessions: 0
+                        };
+                    }
+                    
+                    analytics.countries[countryCode].sessions++;
+                }
+            });
+
+            // Count unique visitors per country
+            uniqueCountryVisitors.forEach(countryVisitorKey => {
+                const countryCode = countryVisitorKey.split('_')[0];
+                if (analytics.countries[countryCode]) {
+                    analytics.countries[countryCode].visitors++;
+                }
+            });
+
+            // Calculate total unique visitors across all countries
+            analytics.totalVisitors = new Set(
+                analytics.sessions.map(session => createVisitorFingerprint())
+            ).size;
+
+            // Save updated analytics
+            localStorage.setItem(storageKey, JSON.stringify(analytics));
+            
+            alert(`Simulated visit from ${countryName} 🎉`);
+            refreshData();
+        }
+        
+        function refreshData() {
+            const data = localStorage.getItem(storageKey);
+            const display = document.getElementById('analytics-display');
+            
+            if (data) {
+                const analytics = JSON.parse(data);
+                display.innerHTML = `
+                    <h3>Summary:</h3>
+                    <ul>
+                        <li>Total Sessions: ${analytics.sessions ? analytics.sessions.length : 0}</li>
+                        <li>Total Views: ${analytics.totalViews || 0}</li>
+                        <li>Total Visitors: ${analytics.totalVisitors || 0}</li>
+                        <li>Countries: ${analytics.countries ? Object.keys(analytics.countries).length : 0}</li>
+                    </ul>
+                    
+                    <h3>Countries:</h3>
+                    <pre>${JSON.stringify(analytics.countries || {}, null, 2)}</pre>
+                    
+                    <h3>Recent Sessions:</h3>
+                    <pre>${JSON.stringify(analytics.sessions ? analytics.sessions.slice(-5) : [], null, 2)}</pre>
+                `;
+            } else {
+                display.innerHTML = '<p>No analytics data found</p>';
+            }
+        }
+        
+        function clearData() {
+            localStorage.removeItem(storageKey);
+            alert('Analytics data cleared!');
+            refreshData();
+        }
+        
+        // Initial load
+        refreshData();
+    </script>
+</body>
+</html>
