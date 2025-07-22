@@ -14,7 +14,10 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Referrer-Policy" cont                } catch (error) {
+                    // All geolocation attempts failed, use default
+                    return { code: 'AU', name: 'Australia', flag: '🇦🇺' }; // Default fallback
+                }"strict-origin-when-cross-origin">
     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=()">
     
     <!-- Open Graph Tags -->
@@ -854,7 +857,6 @@
 
                     for (const service of services) {
                         try {
-                            console.log(`Trying geolocation service: ${service.url}`);
                             const response = await fetch(service.url, {
                                 method: 'GET',
                                 cache: 'no-cache',
@@ -863,16 +865,14 @@
                             
                             if (response.ok) {
                                 const data = await response.json();
-                                console.log(`Service response:`, data);
                                 const country = service.transform(data);
                                 
                                 if (country.code && country.code.length === 2 && country.code !== 'undefined') {
-                                    console.log(`Successfully detected country:`, country);
                                     return country;
                                 }
                             }
-                        } catch (serviceError) {
-                            console.log(`Service ${service.url} failed:`, serviceError);
+                        } catch {
+                            // Service failed, try next one
                             continue;
                         }
                     }
@@ -891,7 +891,7 @@
                         fallbackCountry = 'JP';
                     }
                     
-                    console.log(`Using fallback country based on timezone ${timezone}: ${fallbackCountry}`);
+                    // Using fallback country based on timezone
                     
                     return {
                         code: fallbackCountry,

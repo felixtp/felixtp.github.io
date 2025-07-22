@@ -262,21 +262,16 @@ class VintageAnalytics {
 
     loadData() {
         const stored = localStorage.getItem(this.storageKey);
-        console.log('Analytics loading data:', stored); // Debug log
-        const data = stored ? JSON.parse(stored) : {
+        return stored ? JSON.parse(stored) : {
             sessions: [],
             posts: {},
             countries: {},
             totalViews: 0,
             totalVisitors: 0
         };
-        console.log('Parsed analytics data:', data); // Debug log
-        return data;
     }
 
     updateDisplays() {
-        console.log('Updating displays with data:', this.data); // Debug log
-        
         // Update basic stats
         document.getElementById('total-visitors').textContent = this.data.totalVisitors || 0;
         document.getElementById('total-views').textContent = this.data.totalViews || 0;
