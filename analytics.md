@@ -45,80 +45,71 @@ permalink: /analytics.html
 <div id="country-list" class="country-list"></div>
 
 <style>
-/* Vintage Analytics Styling */
-.analytics-header {
+/* Analytics Page Styling */
+.vintage-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-4xl);
+    color: var(--vintage-green);
     text-align: center;
     margin-bottom: var(--space-16);
-    padding-bottom: var(--space-8);
-    border-bottom: 1px solid var(--border-light);
+    font-weight: 600;
+    letter-spacing: -0.02em;
 }
 
 .vintage-subtitle {
     font-family: var(--font-mono);
     color: var(--text-secondary);
+    text-align: center;
     font-size: var(--font-size-sm);
-    font-style: italic;
+    margin-bottom: var(--space-8);
+    text-transform: lowercase;
     letter-spacing: 0.05em;
 }
 
-.vintage-map {
-    background: var(--bg-secondary);
-    border: 2px solid var(--border-medium);
-    border-radius: var(--border-radius);
-    padding: var(--space-8);
-    margin: var(--space-8) 0;
-    min-height: 400px;
-    position: relative;
-    overflow: hidden;
-}
-
-.map-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    font-family: var(--font-mono);
-    color: var(--text-tertiary);
-    font-size: var(--font-size-lg);
-}
-
-.visitor-grid {
+.stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--space-6);
-    margin: var(--space-16) 0;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-8);
+    margin-bottom: var(--space-24);
 }
 
-.stat-card {
-    background: var(--bg-accent);
-    border: 1px solid var(--border-light);
+.stat-box {
+    background: var(--bg-secondary);
+    padding: var(--space-8);
     border-radius: var(--border-radius);
-    padding: var(--space-6);
+    border: 1px solid var(--border-light);
     text-align: center;
     transition: all 0.2s ease;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.stat-card:hover {
+.stat-box:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-subtle);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border-color: var(--vintage-green);
 }
 
 .stat-number {
-    display: block;
     font-family: var(--font-mono);
-    font-size: var(--font-size-3xl);
+    font-size: var(--font-size-4xl);
     font-weight: 600;
     color: var(--vintage-green);
+    display: block;
+    margin-bottom: var(--space-3);
     line-height: 1;
-    margin-bottom: var(--space-2);
 }
 
 .stat-label {
     font-family: var(--font-mono);
-    font-size: var(--font-size-xs);
-    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    color: var(--text-tertiary);
     text-transform: lowercase;
     letter-spacing: 0.05em;
+    font-weight: 400;
 }
 
 .post-rankings {
@@ -131,27 +122,158 @@ permalink: /analytics.html
 
 .post-rank {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: var(--space-3) 0;
-    border-bottom: 1px solid var(--border-light);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-sm);
+    gap: var(--space-4);
+    padding: var(--space-4);
+    margin-bottom: var(--space-3);
+    background: var(--bg-accent);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-light);
+    transition: all 0.2s ease;
 }
 
-.post-rank:last-child {
-    border-bottom: none;
+.post-rank:hover {
+    background: var(--bg-secondary);
+    transform: translateX(4px);
+}
+
+.post-number {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--vintage-amber);
+    font-size: var(--font-size-lg);
+    min-width: 30px;
+    text-align: center;
 }
 
 .post-title {
+    flex: 1;
+    font-family: var(--font-serif);
     color: var(--text-primary);
-    flex-grow: 1;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    line-height: 1.4;
 }
 
 .post-views {
-    color: var(--vintage-amber);
+    font-family: var(--font-mono);
+    color: var(--text-tertiary);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.country-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    margin-bottom: var(--space-3);
+    background: var(--bg-accent);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-light);
+    transition: all 0.2s ease;
+}
+
+.country-item:hover {
+    background: var(--bg-secondary);
+    transform: translateX(4px);
+}
+
+.country-flag {
+    font-size: var(--font-size-xl);
+    min-width: 40px;
+    text-align: center;
+}
+
+.country-name {
+    flex: 1;
+    font-family: var(--font-serif);
+    color: var(--text-primary);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+}
+
+.country-count {
+    font-family: var(--font-mono);
+    color: var(--vintage-green);
+    font-size: var(--font-size-sm);
     font-weight: 600;
-    margin-left: var(--space-4);
+    white-space: nowrap;
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-3xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-8);
+    margin-top: var(--space-24);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.section-container {
+    background: var(--bg-secondary);
+    padding: var(--space-8);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-light);
+    margin-bottom: var(--space-16);
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--space-6);
+    }
+    
+    .stat-box {
+        min-height: 120px;
+        padding: var(--space-6);
+    }
+    
+    .stat-number {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .vintage-title {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-2xl);
+        margin-top: var(--space-16);
+    }
+    
+    .post-rank, .country-item {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-2);
+    }
+    
+    .post-number, .country-flag {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    .stat-box {
+        min-height: 100px;
+        padding: var(--space-4);
+    }
+    
+    .stat-number {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .vintage-title {
+        font-size: var(--font-size-2xl);
+    }
 }
 
 .country-list {

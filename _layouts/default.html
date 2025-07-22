@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
     
     <!-- SEO Meta Tags -->
@@ -528,39 +528,120 @@
         @media (max-width: 768px) {
             :root {
                 --max-width: 100%;
-                --spacing-md: 1rem;
-                --spacing-lg: 1.5rem;
-                --spacing-xl: 2rem;
-                --spacing-xxl: 2.5rem;
+                --space-4: 0.75rem;
+                --space-6: 1rem;
+                --space-8: 1.25rem;
+                --space-12: 2rem;
+                --space-16: 2.5rem;
+                --space-24: 3rem;
+            }
+
+            .container {
+                padding: 0 var(--space-4);
             }
 
             .header-content {
-                flex-direction: column;
-                gap: var(--spacing-sm);
+                padding: 0 var(--space-4);
             }
 
             nav ul {
-                gap: var(--spacing-md);
+                gap: var(--space-6);
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
-            .home-title {
-                font-size: 2.5rem;
+            .home-title, .post-title {
+                font-size: var(--font-size-3xl);
             }
 
-            .post-title {
-                font-size: 2rem;
+            .logo {
+                font-size: var(--font-size-3xl);
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: var(--font-size-3xl);
             }
 
             h2 {
-                font-size: 1.5rem;
+                font-size: var(--font-size-2xl);
+            }
+
+            h3 {
+                font-size: var(--font-size-xl);
             }
 
             .post-content {
-                font-size: 1rem;
+                font-size: var(--font-size-base);
+            }
+
+            .blog-post {
+                padding: var(--space-6);
+                margin-bottom: var(--space-12);
+            }
+
+            .home-stats {
+                flex-direction: column;
+                gap: var(--space-4);
+            }
+
+            .post-stats {
+                flex-direction: column;
+                gap: var(--space-2);
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --space-4: 0.5rem;
+                --space-6: 0.75rem;
+                --space-8: 1rem;
+                --space-12: 1.5rem;
+                --space-16: 2rem;
+                --space-24: 2.5rem;
+            }
+
+            .container {
+                padding: 0 var(--space-3);
+            }
+
+            .header-content {
+                padding: 0 var(--space-3);
+            }
+
+            nav ul {
+                gap: var(--space-4);
+                font-size: var(--font-size-xs);
+            }
+
+            .home-title, .post-title {
+                font-size: var(--font-size-2xl);
+            }
+
+            .logo {
+                font-size: var(--font-size-2xl);
+            }
+
+            h1 {
+                font-size: var(--font-size-2xl);
+            }
+
+            h2 {
+                font-size: var(--font-size-xl);
+            }
+
+            .tagline {
+                font-size: var(--font-size-xs);
+            }
+
+            .blog-post {
+                padding: var(--space-4);
+                margin-bottom: var(--space-8);
+            }
+
+            .blog-post-footer {
+                flex-direction: column;
+                gap: var(--space-3);
+                text-align: center;
             }
         }
 
